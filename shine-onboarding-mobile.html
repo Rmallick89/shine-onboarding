@@ -252,8 +252,34 @@ html,body{height:100%;overflow:hidden;background:#0B3FCC;transition:background-c
 .s5x .cd{padding:28px 22px 24px}.s5x .cd h3{margin-bottom:26px}.s5x .cd .ns2{margin-top:16px}
 .s5x .sky{opacity:0;filter:blur(6px);transition:opacity 1.1s ease .15s,filter 1.1s ease .15s}.s5x.in .sky{opacity:1;filter:none}
 .s5x::before{content:"";position:absolute;left:0;right:0;top:0;height:26%;z-index:1;pointer-events:none;background:linear-gradient(var(--bg) 0%,rgba(250,249,246,.75) 35%,rgba(250,249,246,0));-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);-webkit-mask-image:linear-gradient(#000 30%,transparent);mask-image:linear-gradient(#000 30%,transparent)}
+
+/* headings a size smaller on every reel */
+.st h2,.s4i .t,.s1 h1{font-size:clamp(23px,6.7vw,27px)}
+.s5x .rot{font-size:clamp(42px,12.5vw,52px)}
+.s5x .cd h3{font-size:20px}
+.st h1,.st h2,.s4i .t{text-wrap:balance}
+/* more space between elements */
+.s2 .tally{padding-top:18px}
+.s1 h1{margin-top:18px}
+.st h2,.s4i .t{margin-top:16px}
+.st .sub,.s4i .ld{margin-top:14px}
+.s1 .stat{margin-top:46px;padding-top:36px}
+.s1 .peek{margin-top:66px}
+.s2 .c2{margin-top:clamp(40px,9vh,78px);margin-top:clamp(40px,9svh,78px);gap:12px}
+.s2 .c2 .ch{margin-bottom:6px}
+.s3 .slot{margin:32px 0 16px}
+.s5x .cd h3{margin-bottom:30px}.s5x .cd .ns2{margin-top:18px}
+@media (max-height:700px){.s1 h1,.s4i .t{font-size:22px}.st h2{font-size:24px}.s1 .stat{margin-top:28px;padding-top:22px}.s1 .peek{margin-top:38px}.s2 .c2{gap:9px}.s3 .slot{margin:24px 0 10px}}
+/* close button: sits on the body (which never scrolls), so it floats over every reel without being position:fixed */
+.cs-x{position:absolute;z-index:20;top:calc(max(12px,env(safe-area-inset-top)) + 2px);right:14px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  color:#fff;background:rgba(255,255,255,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.24);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  transition:background-color .35s,color .35s,box-shadow .35s;-webkit-tap-highlight-color:transparent}
+.cs-x.lt{color:var(--ink);background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px rgba(13,17,23,.1),0 6px 16px -8px rgba(13,17,23,.3)}
+.cs-x:active{transform:scale(.94)}
+.cs-x:focus-visible{outline:3px solid var(--brand-2);outline-offset:2px}
 </style></head><body>
 
+<a class="cs-x" href="#" role="button" aria-label="Close case study" data-close><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <main class="feed" id="feed">
 <section class="st blue s1"><p class="k" data-in>Native app &amp; web</p><h1 data-in style="--d:1">Redesigned candidate onboarding, <span>cutting registration drop-off by more than half in 90 days</span></h1>
   <div class="stat" data-in style="--d:2"><b>61%</b><i></i><p>less drop-off<span>from 94.8% to 36.6%</span></p></div>
@@ -280,7 +306,7 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-copy
 
 var F=document.getElementById('feed'),S=[].slice.call(F.children),R=[].slice.call(document.querySelectorAll('#rail button')),rail={style:{}},meta=document.querySelector('meta[name=theme-color]'),cur=-1;
 function set(i){if(i===cur)return;cur=i;R.forEach(function(b,k){b.classList.toggle('on',k===i)});
-  var c=S[i].classList.contains('light')?'#0D1117':'#fff';rail.style.color=c;var bg=getComputedStyle(S[i]).backgroundColor;meta.content=bg;document.documentElement.style.backgroundColor=bg;document.body.style.backgroundColor=bg;
+  var c=S[i].classList.contains('light')?'#0D1117':'#fff';rail.style.color=c;document.querySelector('.cs-x').classList.toggle('lt',S[i].classList.contains('light'));var bg=getComputedStyle(S[i]).backgroundColor;meta.content=bg;document.documentElement.style.backgroundColor=bg;document.body.style.backgroundColor=bg;
   S.forEach(function(s,k){var v=s.querySelector('video');if(!v)return;if(k===i){v.currentTime=0;v.play().catch(function(){})}else v.pause()})}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.intersectionRatio>.55){e.target.classList.add('in');set(S.indexOf(e.target))}})},{root:F,threshold:[.55]});
 S.forEach(function(s){io.observe(s)});
@@ -345,4 +371,5 @@ b.addEventListener('click',function(){go(i+1)});b.addEventListener('keydown',fun
 paint(b,S[0]);show(face,S[0]);set();
 whenVisible(document.querySelector('.s4i'),function(){show(face,S[0],true);tm=setTimeout(function(){go(1)},3200)});
 })();
+document.addEventListener('click',function(e){if(e.target.closest('[data-close]'))e.preventDefault()});
 </script></body></html>
