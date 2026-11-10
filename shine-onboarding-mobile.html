@@ -277,6 +277,41 @@ html,body{height:100%;overflow:hidden;background:#0B3FCC;transition:background-c
 .cs-x.lt{color:var(--ink);background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px rgba(13,17,23,.1),0 6px 16px -8px rgba(13,17,23,.3)}
 .cs-x:active{transform:scale(.94)}
 .cs-x:focus-visible{outline:3px solid var(--brand-2);outline-offset:2px}
+
+
+.s2x{background:var(--bg);color:var(--ink)}
+.s2x h2{max-width:300px}
+.ch{font-size:15px;font-weight:800;letter-spacing:-.01em}
+.st1{font-size:13px;font-weight:600;color:var(--body)}.st1 b{font-size:20px;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin-right:4px}
+.tx{display:grid;grid-template-columns:repeat(100,1fr);gap:1px;height:52px;margin-top:12px}
+.tx i{border-radius:1px;background:var(--red);opacity:.85;transform:scaleY(0);transform-origin:bottom}.tx i.y{background:var(--yellow);opacity:1}
+.st.in .tx i{transform:none;transition:transform .5s cubic-bezier(.2,.8,.2,1);transition-delay:calc(300ms + var(--t) * 7ms)}
+.lg{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--body)}
+.lg b{color:var(--ink);font-weight:800}.lg .r b{color:var(--red)}
+.lg span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.lg span::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--yellow)}.lg .r::before{background:var(--red)}
+
+.s2x .fn{margin-top:auto}
+.s2x .im{margin:48px 0 auto}
+.s2x .card{margin-top:14px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px var(--rule),0 10px 24px -18px rgba(13,17,23,.3)}
+.s2x .card div{display:flex;align-items:center;gap:12px;padding:16px 18px}.s2x .card div+div{border-top:1px solid var(--rule)}
+.s2x .card i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.s2x .card span{flex:1;font-size:14px;font-weight:600}
+.s2x .card b{font-size:17px;font-weight:800;letter-spacing:-.02em;color:var(--c)}
+/* dots */
+.dg{display:grid;gap:var(--g,4px)}
+.dg i{aspect-ratio:1;border-radius:50%;background:var(--red);opacity:.85;transform:scale(0)}.dg i.y{background:var(--yellow);opacity:1}
+.st.in .dg i{transform:none;transition:transform .35s cubic-bezier(.3,1.4,.5,1);transition-delay:calc(300ms + var(--t) * 6ms)}
+.tot{font-size:13px;font-weight:600;color:var(--body)}.tot b{font-size:20px;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin-right:5px}
+
+.s2x .fx{display:flex;align-items:center;gap:24px}
+.s2x .dg{--g:4px;width:132px;flex:none}
+.s2x .tb{flex:1}
+.s2x .tb div{display:flex;align-items:center;gap:8px;padding:11px 0;font-size:13px;font-weight:600;color:var(--body)}
+.s2x .tb div+div{border-top:1px solid var(--rule)}
+.s2x .tb i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.s2x .tb span{flex:1}
+.s2x .tb b{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--v,var(--ink))}
 </style></head><body>
 
 <a class="cs-x" href="#" role="button" aria-label="Close case study" data-close><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
@@ -285,13 +320,7 @@ html,body{height:100%;overflow:hidden;background:#0B3FCC;transition:background-c
   <div class="stat" data-in style="--d:2"><b>61%</b><i></i><p>less drop-off<span>from 94.8% to 36.6%</span></p></div>
   <div class="peek" data-in style="--d:3"><div class="ip"><div><img src="assets/media/signup-landing.webp" alt="Shine sign-up screen: upload a resume or fill details manually"></div></div></div>
   <p class="up" aria-hidden="true"><span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Swipe up</span></p></section>
-<section class="st light s2"><p class="k" data-in>Business problem</p><h2 data-in style="--d:1">Out of every 100 job seekers who start registering, only 5 finish</h2>
-  <div class="tally">
-    <p class="tt" data-in style="--d:2"><span><b>1,15,000</b><br>start every month</span><span class="rt"><b>92.8%</b> web<br><b>7.2%</b> app</span></p>
-    <div class="ticks" role="img" aria-label="100 marks: 5 finish, 95 abandon"><i class="y" style="--t:0"></i><i class="y" style="--t:1"></i><i class="y" style="--t:2"></i><i class="y" style="--t:3"></i><i class="y" style="--t:4"></i><i style="--t:5"></i><i style="--t:6"></i><i style="--t:7"></i><i style="--t:8"></i><i style="--t:9"></i><i style="--t:10"></i><i style="--t:11"></i><i style="--t:12"></i><i style="--t:13"></i><i style="--t:14"></i><i style="--t:15"></i><i style="--t:16"></i><i style="--t:17"></i><i style="--t:18"></i><i style="--t:19"></i><i style="--t:20"></i><i style="--t:21"></i><i style="--t:22"></i><i style="--t:23"></i><i style="--t:24"></i><i style="--t:25"></i><i style="--t:26"></i><i style="--t:27"></i><i style="--t:28"></i><i style="--t:29"></i><i style="--t:30"></i><i style="--t:31"></i><i style="--t:32"></i><i style="--t:33"></i><i style="--t:34"></i><i style="--t:35"></i><i style="--t:36"></i><i style="--t:37"></i><i style="--t:38"></i><i style="--t:39"></i><i style="--t:40"></i><i style="--t:41"></i><i style="--t:42"></i><i style="--t:43"></i><i style="--t:44"></i><i style="--t:45"></i><i style="--t:46"></i><i style="--t:47"></i><i style="--t:48"></i><i style="--t:49"></i><i style="--t:50"></i><i style="--t:51"></i><i style="--t:52"></i><i style="--t:53"></i><i style="--t:54"></i><i style="--t:55"></i><i style="--t:56"></i><i style="--t:57"></i><i style="--t:58"></i><i style="--t:59"></i><i style="--t:60"></i><i style="--t:61"></i><i style="--t:62"></i><i style="--t:63"></i><i style="--t:64"></i><i style="--t:65"></i><i style="--t:66"></i><i style="--t:67"></i><i style="--t:68"></i><i style="--t:69"></i><i style="--t:70"></i><i style="--t:71"></i><i style="--t:72"></i><i style="--t:73"></i><i style="--t:74"></i><i style="--t:75"></i><i style="--t:76"></i><i style="--t:77"></i><i style="--t:78"></i><i style="--t:79"></i><i style="--t:80"></i><i style="--t:81"></i><i style="--t:82"></i><i style="--t:83"></i><i style="--t:84"></i><i style="--t:85"></i><i style="--t:86"></i><i style="--t:87"></i><i style="--t:88"></i><i style="--t:89"></i><i style="--t:90"></i><i style="--t:91"></i><i style="--t:92"></i><i style="--t:93"></i><i style="--t:94"></i><i style="--t:95"></i><i style="--t:96"></i><i style="--t:97"></i><i style="--t:98"></i><i style="--t:99"></i></div>
-    <p class="tk" data-in style="--d:3"><span class="y"><b>~6,000</b><br>finish · 5.2%</span><span class="r"><b>1,09,000</b><br>abandon · 94.8%</span></p>
-  </div>
-  <div class="c2" data-in style="--d:4"><p class="ch">Where it hurt most</p><div style="--c:#6F46E0;--t:#F3EEFE"><i></i><em>Too small active DB</em><b>17 lacs</b><span>Few new sign-ups</span></div><div style="--c:#A35A04;--t:#FFF6B8"><i></i><em>Too high CAC</em><b>₹22–24</b><span>High drop-off</span></div><div style="--c:#B42318;--t:#FEF2F2"><i></i><em>Low recruiter</em><b>Renewals ↓</b><span>Low applies, thin DB</span></div></div></section>
+<section class="st light s2x"><p class="k" data-in>Business problem</p><h2 data-in style="--d:1">Out of every 100 job seekers who start registering, only 5 finish</h2><div class="fn" data-in style="--d:2"><div class="fx"><div class="dg" style="grid-template-columns:repeat(10,1fr)" role="img" aria-label="100 dots: 5 finish, 95 abandon"><i class="y" style="--t:0"></i><i class="y" style="--t:1"></i><i class="y" style="--t:2"></i><i class="y" style="--t:3"></i><i class="y" style="--t:4"></i><i style="--t:5"></i><i style="--t:6"></i><i style="--t:7"></i><i style="--t:8"></i><i style="--t:9"></i><i style="--t:10"></i><i style="--t:11"></i><i style="--t:12"></i><i style="--t:13"></i><i style="--t:14"></i><i style="--t:15"></i><i style="--t:16"></i><i style="--t:17"></i><i style="--t:18"></i><i style="--t:19"></i><i style="--t:20"></i><i style="--t:21"></i><i style="--t:22"></i><i style="--t:23"></i><i style="--t:24"></i><i style="--t:25"></i><i style="--t:26"></i><i style="--t:27"></i><i style="--t:28"></i><i style="--t:29"></i><i style="--t:30"></i><i style="--t:31"></i><i style="--t:32"></i><i style="--t:33"></i><i style="--t:34"></i><i style="--t:35"></i><i style="--t:36"></i><i style="--t:37"></i><i style="--t:38"></i><i style="--t:39"></i><i style="--t:40"></i><i style="--t:41"></i><i style="--t:42"></i><i style="--t:43"></i><i style="--t:44"></i><i style="--t:45"></i><i style="--t:46"></i><i style="--t:47"></i><i style="--t:48"></i><i style="--t:49"></i><i style="--t:50"></i><i style="--t:51"></i><i style="--t:52"></i><i style="--t:53"></i><i style="--t:54"></i><i style="--t:55"></i><i style="--t:56"></i><i style="--t:57"></i><i style="--t:58"></i><i style="--t:59"></i><i style="--t:60"></i><i style="--t:61"></i><i style="--t:62"></i><i style="--t:63"></i><i style="--t:64"></i><i style="--t:65"></i><i style="--t:66"></i><i style="--t:67"></i><i style="--t:68"></i><i style="--t:69"></i><i style="--t:70"></i><i style="--t:71"></i><i style="--t:72"></i><i style="--t:73"></i><i style="--t:74"></i><i style="--t:75"></i><i style="--t:76"></i><i style="--t:77"></i><i style="--t:78"></i><i style="--t:79"></i><i style="--t:80"></i><i style="--t:81"></i><i style="--t:82"></i><i style="--t:83"></i><i style="--t:84"></i><i style="--t:85"></i><i style="--t:86"></i><i style="--t:87"></i><i style="--t:88"></i><i style="--t:89"></i><i style="--t:90"></i><i style="--t:91"></i><i style="--t:92"></i><i style="--t:93"></i><i style="--t:94"></i><i style="--t:95"></i><i style="--t:96"></i><i style="--t:97"></i><i style="--t:98"></i><i style="--t:99"></i></div><div class="tb"><div style="--c:#98A2B3"><i></i><span>Starts</span><b>1,15,000</b></div><div style="--c:var(--yellow)"><i></i><span>Finish</span><b>~6,000</b></div><div style="--c:var(--red);--v:var(--red)"><i></i><span>Abandon</span><b>1,09,000</b></div></div></div></div><div class="im" data-in style="--d:3"><p class="ch">Where it hurt most</p><div class="card"><div style="--c:#6F46E0"><i></i><span>Too small active DB</span><b>17 lacs</b></div><div style="--c:#A35A04"><i></i><span>Too high CAC</span><b>₹22–24</b></div><div style="--c:#B42318"><i></i><span>Low recruiter</span><b>Renewals ↓</b></div></div></div></section>
 <section class="st blue s3"><p class="k" data-in>Live in production</p><h2 data-in style="--d:1">The solution that worked</h2><p class="sub" data-in style="--d:2">Smart resume-based onboarding.</p>
   <div class="slot" data-in style="--d:3"><div class="phone"><div><video src="assets/media/mobile-solution.mp4" poster="assets/media/mobile-solution-poster.webp" muted loop playsinline preload="metadata" aria-label="Recording of the resume-based onboarding"></video></div></div></div>
   <div class="row" data-in style="--d:4"><div><b>63%</b><span>completion</span></div><div><b>94%</b><span>preferred path</span></div><div><b>61%</b><span>less drop-off</span></div></div></section>
