@@ -1,0 +1,425 @@
+/* ==========================================================================
+   Case study slideshow – shared styles
+   --------------------------------------------------------------------------
+   1. Deck shell (full-width stage, bottom bar, controls that appear on mouse move)
+   2. Slide canvas (every slide is a 1920 × 1080 artboard, scaled to fit)
+   3. Building blocks used inside slides (text, boxes, cards, charts …)
+
+   Positions inside a slide use artboard pixels, exactly like Figma:
+   --x / --y   left / top              --w / --h  width / height
+   --b         text BASELINE (y)       --fs       font size   --lh line height
+   ========================================================================== */
+
+/* Satoshi by Indian Type Foundry (Fontshare, free for commercial use), self-hosted */
+@font-face { font-family: "Satoshi"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/Satoshi-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Satoshi"; font-weight: 500; font-style: normal; font-display: swap; src: url("fonts/Satoshi-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Satoshi"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/Satoshi-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Satoshi"; font-weight: 900; font-style: normal; font-display: swap; src: url("fonts/Satoshi-Black.woff2") format("woff2"); }
+
+:root {
+  /* deck shell */
+  --room: #0c1324;
+  --room-raised: #16203a;
+  --room-ink: #f2f4f9;
+  --room-muted: #8d97b3;
+  --room-line: rgba(242, 244, 249, 0.14);
+  --room-accent: #d0661c;
+  --ui-font: "Satoshi", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* slide palette (taken from the Figma file) */
+  --navy: #1f3364;
+  --ink: #191500;
+  --muted: #757366;
+  --orange: #c65c10;
+  --red: #f2415a;
+  --blue: #295bff;
+  --green: #27be69;
+  --purple: #7f5fd7;
+  --panel: #f4f5f7;
+  --card: #f8f8f7;
+  --hair: rgba(25, 21, 0, 0.08);
+
+  /* card gradients (white → tint, top to bottom) */
+  --tint-peach: linear-gradient(180deg, #ffffff 0%, #fff5ee 100%);
+  --tint-lilac: linear-gradient(180deg, #ffffff 0%, #f3eeff 100%);
+  --tint-lime: linear-gradient(180deg, #ffffff 0%, #f8ffee 100%);
+  --tint-mint: linear-gradient(180deg, #ffffff 0%, #eefff9 100%);
+  --tint-sky: linear-gradient(180deg, #d7e6ff 0%, #fcfdff 100%);
+
+  --font: "Satoshi", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-note: "Caveat", "Segoe Print", cursive;
+  --font-marker: "Gochi Hand", "Segoe Print", cursive;
+  --font-script: "Satisfy", "Brush Script MT", cursive;
+
+  /* full view: the slide fills the whole screen, minus room for the bottom bar */
+  --vh: 100vh;
+  --bar-h: 76px;
+  --stage-w: 100vw;
+  --stage-h: calc(var(--vh) - var(--bar-h) - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  color-scheme: dark;
+}
+
+/* ---------- 1. Deck shell ---------- */
+@supports (height: 100dvh) { :root { --vh: 100dvh; } }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--room);
+  color: var(--room-ink);
+  font-family: var(--ui-font);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.deck {
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  outline: none;
+}
+
+/* the slide, edge to edge */
+.stage-wrap { position: relative; flex: none; width: var(--stage-w); max-width: 100%; }
+.deck.idle .stage-wrap { cursor: none; }
+.stage {
+  position: relative; width: 100%; height: var(--stage-h);
+  overflow: hidden; background: #fff;
+  touch-action: pan-y; user-select: none;
+}
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; visibility: hidden;
+  transform: translateX(var(--from, 2%));
+  transition: opacity .45s ease, transform .55s cubic-bezier(.2,.7,.2,1), visibility 0s linear .55s;
+}
+.slide.is-active {
+  opacity: 1; visibility: visible; transform: none; z-index: 1;
+  transition: opacity .45s ease, transform .55s cubic-bezier(.2,.7,.2,1), visibility 0s;
+}
+
+/* close + side arrows float over the slide and only show while the mouse moves */
+.ov-btn {
+  position: absolute; z-index: 5;
+  display: grid; place-items: center;
+  width: 48px; height: 48px; padding: 0; border-radius: 50%;
+  background: rgba(12, 19, 36, .62); color: #fff;
+  border: 1px solid rgba(255, 255, 255, .2);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+  cursor: pointer;
+  opacity: 0; pointer-events: none; transform: scale(.9);
+  transition: opacity .25s ease, transform .25s ease, background .2s ease;
+}
+.deck.show-controls .ov-btn, .ov-btn:focus-visible { opacity: 1; pointer-events: auto; transform: none; }
+.ov-btn:hover { background: rgba(12, 19, 36, .88); }
+.ov-btn:focus-visible { outline: 2px solid var(--room-accent); outline-offset: 3px; }
+.ov-btn[disabled] { display: none; }
+.ov-btn svg { width: 20px; height: 20px; }
+.close-btn {
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  right: max(20px, env(safe-area-inset-right, 0px));
+}
+.side-nav { top: 50%; margin-top: -24px; }
+.side-nav.prev { left: max(20px, env(safe-area-inset-left, 0px)); }
+.side-nav.next { right: max(20px, env(safe-area-inset-right, 0px)); }
+
+/* bottom bar (unchanged content: progress, counter, slide name, key hints) */
+.bottombar {
+  flex: none; box-sizing: border-box;
+  width: var(--stage-w); max-width: 100%; height: var(--bar-h);
+  display: flex; flex-direction: column; justify-content: center; gap: 12px;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+.progress { height: 3px; border-radius: 3px; background: var(--room-line); overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: var(--room-accent); border-radius: 3px; transition: width .45s cubic-bezier(.2,.7,.2,1); }
+.bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.counter { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.counter .total { color: var(--room-muted); font-weight: 500; }
+.slide-title { flex: 1; min-width: 0; text-align: center; font-size: 14px; color: var(--room-muted); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hint { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--room-muted); white-space: nowrap; }
+kbd {
+  display: inline-grid; place-items: center; min-width: 26px; height: 24px; padding: 0 6px;
+  font: 700 12px/1 var(--ui-font); color: var(--room-ink);
+  background: var(--room-raised); border: 1px solid var(--room-line); border-bottom-width: 2px; border-radius: 6px;
+}
+.icon-btn {
+  flex: none; display: inline-grid; place-items: center;
+  width: 44px; height: 44px; padding: 0; border-radius: 50%;
+  background: var(--room-raised); color: var(--room-ink);
+  border: 1px solid var(--room-line); cursor: pointer;
+  transition: background .2s ease, opacity .2s ease;
+}
+.icon-btn:hover { background: #22305a; }
+.icon-btn:focus-visible { outline: 2px solid var(--room-accent); outline-offset: 3px; }
+.icon-btn[disabled] { opacity: .28; cursor: default; pointer-events: none; }
+.icon-btn svg { width: 20px; height: 20px; }
+.mobile-nav { display: none; gap: 10px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 760px) {
+  :root { --bar-h: 92px; }
+  .side-nav, .hint { display: none; }
+  .mobile-nav { display: flex; }
+  .slide-title { text-align: left; }
+  .bottombar { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .ov-btn { width: 40px; height: 40px; }
+  .close-btn { top: 10px; right: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .progress-fill, .ov-btn, .icon-btn { transition: opacity .15s linear !important; }
+  .slide { transform: none !important; }
+}
+
+/* ---------- 2. Slide canvas ---------- */
+.canvas {
+  position: absolute; left: var(--ox, 0px); top: var(--oy, 0px);
+  width: 1920px; height: 1080px;
+  transform-origin: 0 0;
+  transform: scale(var(--k, 0.5));
+  overflow: hidden;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+.canvas * { box-sizing: border-box; margin: 0; }
+/* margins kept fixed when the slide stretches to a wider or taller screen (see case-study.js) */
+.canvas { --fit-mx: 108; --fit-my: 96; }
+.canvas.navy { background: var(--navy); color: #fff; }
+.canvas.waves { background: var(--navy) var(--waves-img, none) center / cover no-repeat; color: #fff; }
+
+/* ---------- 3. Building blocks ---------- */
+
+/* Text placed on its baseline, like Figma. Satoshi metrics: ascent 1.01, descent .24 */
+.t {
+  --A: 1.01; --D: 0.24;
+  --lh: calc(var(--fs) * 1.3);
+  position: absolute;
+  left: calc(var(--x) * 1px);
+  top: calc((var(--b) - (var(--lh) - (var(--A) + var(--D)) * var(--fs)) / 2 - var(--A) * var(--fs)) * 1px);
+  font-size: calc(var(--fs) * 1px);
+  line-height: calc(var(--lh) * 1px);
+  white-space: nowrap;
+}
+.t.wrap { white-space: normal; width: calc(var(--w) * 1px); }
+.t.center { left: auto; width: 1920px; text-align: center; }
+.t.right { left: auto; right: calc(var(--r) * 1px); text-align: right; }
+.t p + p, .t .gap { margin-top: calc(var(--pgap, 36) * 1px); }
+
+/* fonts */
+.note   { --A: 0.96;  --D: 0.30;  font-family: var(--font-note); font-weight: 500; }
+.marker { --A: 0.771; --D: 0.408; font-family: var(--font-marker); }
+.script { --A: 0.935; --D: 0.489; font-family: var(--font-script); }
+.ss01 { font-feature-settings: "ss01" 1; }       /* Satoshi single-storey "a" */
+.w3 { font-weight: 300; } .w4 { font-weight: 400; } .w5 { font-weight: 500; }
+.w7 { font-weight: 700; } .w9 { font-weight: 900; }
+.upper { text-transform: uppercase; }
+
+/* colours */
+.c-navy { color: var(--navy); } .c-ink { color: var(--ink); } .c-muted { color: var(--muted); }
+.c-white { color: #fff; } .c-orange { color: var(--orange); } .c-red { color: var(--red); }
+.c-blue { color: #2555a5; } .c-purple { color: var(--purple); } .c-green { color: #1f6f3f; }
+
+/* generic positioned rectangle / image / svg */
+.box, .pic, .vec {
+  position: absolute;
+  left: calc(var(--x) * 1px); top: calc(var(--y) * 1px);
+}
+.box {
+  width: calc(var(--w) * 1px); height: calc(var(--h) * 1px);
+  border-radius: calc(var(--r, 0) * 1px);
+  background: var(--bg, transparent);
+}
+.pic { width: calc(var(--w) * 1px); height: auto; display: block; max-width: none; pointer-events: none; }
+.vec { width: calc(var(--w) * 1px); height: calc(var(--h) * 1px); overflow: visible; }
+
+/* hairline ring used around cards (Figma: 1.6px outside stroke, ink 8%) */
+.ring { box-shadow: 0 0 0 1.6px var(--hair); }
+
+/* thin accent lines at slide edges */
+.edge-bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: var(--orange); }
+.edge-bottom.navy { background: var(--navy); }
+
+/* section-number scribble under "01", "02" … */
+.scribble { position: absolute; width: 134px; height: 26px; }
+
+/* pill badge (team cards) */
+.badge {
+  position: absolute; right: 20px; top: 20px; height: 40px; padding: 0 24px;
+  display: flex; align-items: center;
+  border-radius: 20px; background: var(--blue); color: #fff;
+  font-size: 16.4px; font-weight: 500; box-shadow: 0 0 0 1px var(--hair);
+}
+
+/* emoji in a round chip */
+.chip {
+  position: absolute; left: calc(var(--x) * 1px); top: calc(var(--y) * 1px);
+  width: calc(var(--s, 80) * 1px); height: calc(var(--s, 80) * 1px);
+  border-radius: 50%; background: var(--chip-bg, #fff);
+  display: grid; place-items: center;
+}
+.chip img { width: calc(var(--e, 42) * 1px); height: auto; display: block; }
+
+/* bullet list inside cards */
+.bullets { list-style: none; padding: 0; }
+.bullets li { position: relative; padding-left: 28px; }
+.bullets li::before {
+  content: ""; position: absolute; left: 2px; top: calc(var(--lh) * 0.5px - 3.5px);
+  width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+}
+.bullets li + li { margin-top: calc(var(--pgap, 36) * 1px); }
+
+/* donut chart (drawn by case-study.js from data-* attributes) */
+.donut { position: absolute; left: calc(var(--x) * 1px); top: calc(var(--y) * 1px); width: calc(var(--d) * 1px); height: calc(var(--d) * 1px); }
+.donut svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.donut .pct {
+  position: absolute; transform: translate(-50%, -50%);
+  padding: 0 7px; height: 19px; line-height: 19px; border-radius: 10px;
+  background: rgba(255,255,255,.14); color: #fff; font-size: 12.5px; font-weight: 500; white-space: nowrap;
+}
+
+/* keyboard-key hint icon on the cover: ▲ on top, ◀ ▼ ▶ below */
+.keys { position: absolute; left: calc(var(--x) * 1px); top: calc(var(--y) * 1px); width: 96px; height: 62px; }
+.keys i { position: absolute; width: 29px; height: 29px; border-radius: 5px; background: #fff; }
+.keys i.o { background: transparent; box-shadow: inset 0 0 0 1.6px #fff; }
+.keys i::after { content: ""; position: absolute; left: 50%; top: 50%; border: 3.6px solid transparent; transform: translate(-50%, -50%); }
+.keys .up    { left: 33.5px; top: 0; }
+.keys .left  { left: 0; top: 33px; }
+.keys .down  { left: 33.5px; top: 33px; }
+.keys .right { left: 67px; top: 33px; }
+.keys .up::after    { border-bottom: 5.5px solid #fff; border-top-width: 0; margin-top: -1px; }
+.keys .down::after  { border-top: 5.5px solid #fff; border-bottom-width: 0; margin-top: 1px; }
+.keys .left::after  { border-right: 5.5px solid var(--navy); border-left-width: 0; }
+.keys .right::after { border-left: 5.5px solid var(--navy); border-right-width: 0; }
+
+/* segmented toggle (slide 19) */
+.toggle {
+  position: absolute; left: calc(var(--x) * 1px); top: calc(var(--y) * 1px);
+  display: flex; padding: 4px; gap: 0; border-radius: 16px;
+  background: rgba(255,255,255,.08);
+}
+.toggle span {
+  display: grid; place-items: center; height: 48px; padding: 0 calc(var(--pad, 52) * 1px);
+  border-radius: 12px; font-size: 16.5px; font-weight: 500; color: rgba(255,255,255,.55); white-space: nowrap;
+}
+.toggle span.on { background: #fff; color: var(--ink); }
+
+/* chart legend: big number with a coloured dot, label underneath */
+.legend { position: absolute; text-align: center; }
+.legend .lg-n {
+  position: relative; display: inline-block;
+  height: 22px; line-height: 22px; font-size: 18px; font-weight: 700; color: var(--ink);
+}
+.legend .lg-n i {
+  position: absolute; right: -9px; top: -2px; width: 7.8px; height: 7.8px; border-radius: 50%;
+  background: var(--c); box-shadow: 0 0 0 2px #fff, 0 0 0 3px rgba(25,21,0,.08);
+}
+.legend .lg-l { display: block; height: 14px; line-height: 14px; font-size: 10.5px; color: var(--muted); margin: 1px 0 24px; }
+
+/* ---------- 4. Motion: entrances and step-by-step builds ----------
+   data-in               fades and rises in when the slide opens; stagger with style="--d: 2"
+   data-from="1"         hidden until build step 1 (2, 3 … up to 11) is reached;  --sd: 300ms delays it
+   data-until="0"        shown only up to step 0 (1, 2 …), then fades out
+   .cs-swap              stacks its children in one place, so a data-until / data-from pair swaps
+   .js-next              clicking it acts like the → key
+   Steps come from data-steps="N" on the <section class="slide"> (see case-study.js). */
+.slide.is-active [data-in] { animation: cs-in .8s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(120ms + var(--d, 0) * 90ms); }
+@keyframes cs-in { from { opacity: 0; transform: translateY(28px); } }
+/* Slide intro: every slide's top-level blocks fade and rise in gently, top to bottom, when it opens
+   (case-study.js numbers them by position as --intro-i). Uses the separate `translate` property so a
+   block's own transform is untouched. A slide with its own entrance opts out with data-intro="off". */
+.slide.is-active:not([data-intro="off"]) > .canvas > :not([data-in]):not([data-loop]):not([data-cycle]) {
+  animation: cs-intro .7s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(80ms + var(--intro-i, 3) * 90ms);
+}
+@keyframes cs-intro { from { opacity: 0; translate: 0 18px; } }
+.cs-swap { display: grid; justify-items: start; }
+.cs-swap > * { grid-area: 1 / 1; }
+[data-from], [data-until] {
+  transition: opacity .5s ease var(--sd, 0ms), transform .6s cubic-bezier(.2,.7,.2,1) var(--sd, 0ms), visibility 0s linear 0s;
+}
+.canvas:not(.at-1) [data-from="1"], .canvas:not(.at-2) [data-from="2"], .canvas:not(.at-3) [data-from="3"], .canvas:not(.at-4) [data-from="4"], .canvas:not(.at-5) [data-from="5"],
+.canvas:not(.at-6) [data-from="6"], .canvas:not(.at-7) [data-from="7"], .canvas:not(.at-8) [data-from="8"], .canvas:not(.at-9) [data-from="9"], .canvas:not(.at-10) [data-from="10"], .canvas:not(.at-11) [data-from="11"],
+.canvas.at-1 [data-until="0"], .canvas.at-2 [data-until="1"], .canvas.at-3 [data-until="2"], .canvas.at-4 [data-until="3"], .canvas.at-5 [data-until="4"],
+.canvas.at-6 [data-until="5"], .canvas.at-7 [data-until="6"], .canvas.at-8 [data-until="7"], .canvas.at-9 [data-until="8"], .canvas.at-10 [data-until="9"], .canvas.at-11 [data-until="10"] {
+  opacity: 0; transform: translateY(14px); visibility: hidden; pointer-events: none;
+  transition: opacity .3s ease, transform .4s ease, visibility 0s linear .4s;
+}
+.js-next { cursor: pointer; }
+@media (prefers-reduced-motion: reduce) {
+  .slide.is-active [data-in], .slide.is-active > .canvas > * { animation: none; }
+  [data-from], [data-until], .canvas * { transition-duration: .01s !important; transition-delay: 0s !important; }
+}
+
+/* ---- Auto-play loop (no controls) ----------------------------------------------------------
+   Elements with data-loop="0" and data-loop="1" take turns, half of --loop each (default 12s),
+   starting with 0 whenever the slide opens and repeating while it stays open.
+   data-loop-bar="0|1"   a progress bar that fills while its turn is playing
+   data-loop-label="0|1" a label that is bright on its turn and dimmed otherwise
+   Set --loop on the canvas; --sd on an element delays it a little for a stagger. */
+[data-loop] { opacity: 0; }
+.slide.is-active [data-loop] { animation: cs-loop var(--loop, 12s) linear calc(var(--sd, 0ms)) infinite backwards; }
+.slide.is-active [data-loop="1"] { animation-delay: calc(var(--sd, 0ms) - var(--loop, 12s) / 2); }
+@keyframes cs-loop {
+  0%   { opacity: 0; transform: translateY(14px); }
+  4%   { opacity: 1; transform: none; }
+  46%  { opacity: 1; transform: none; }
+  50%  { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+[data-loop-bar] { display: block; height: 100%; transform: scaleX(0); transform-origin: left; }
+.slide.is-active [data-loop-bar] { animation: cs-loop-bar var(--loop, 12s) linear infinite; }
+.slide.is-active [data-loop-bar="1"] { animation-delay: calc(var(--loop, 12s) / -2); }
+@keyframes cs-loop-bar { 0% { transform: scaleX(0); } 49.9% { transform: scaleX(1); } 50%, 100% { transform: scaleX(0); } }
+.slide.is-active [data-loop-label] { animation: cs-loop-label var(--loop, 12s) linear infinite; }
+.slide.is-active [data-loop-label="1"] { animation-delay: calc(var(--loop, 12s) / -2); }
+@keyframes cs-loop-label { 0%, 47% { opacity: 1; } 51%, 97% { opacity: .5; } 100% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .slide.is-active [data-loop] { animation-name: cs-loop-fade; }
+  @keyframes cs-loop-fade { 0% { opacity: 0; } 4%, 46% { opacity: 1; } 50%, 100% { opacity: 0; } }
+}
+
+/* ---- Auto-play cycle through N items (3–10), no controls ----
+   Like data-loop but for more than two items. Give each element data-cycle (or data-cycle-bar /
+   data-cycle-label) and inline style="--k: 0" … "--k: N-1", and set --n (item count) and --loop
+   (total time) on the canvas. Item 0 plays first whenever the slide opens. */
+[data-cycle] { opacity: 0; }
+.slide.is-active [data-cycle] { animation: var(--cycle-anim) var(--loop, 21s) linear infinite backwards; animation-delay: calc(var(--sd, 0ms) - (var(--n) - var(--k)) * var(--loop, 21s) / var(--n)); }
+[data-cycle-bar] { display: block; height: 100%; transform: scaleX(0); transform-origin: left; }
+.slide.is-active [data-cycle-bar] { animation: var(--cycle-bar) var(--loop, 21s) linear infinite; animation-delay: calc(0s - (var(--n) - var(--k)) * var(--loop, 21s) / var(--n)); }
+.slide.is-active [data-cycle-label] { animation: var(--cycle-label) var(--loop, 21s) linear infinite; animation-delay: calc(0s - (var(--n) - var(--k)) * var(--loop, 21s) / var(--n)); }
+.canvas[style*="--n: 3"] { --cycle-anim: cs-cyc3; --cycle-bar: cs-cycbar3; --cycle-label: cs-cyclab3; }
+@keyframes cs-cyc3 { 0% { opacity: 0; transform: translateY(14px); } 3.33% { opacity: 1; transform: none; } 30.67% { opacity: 1; transform: none; } 33.33% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar3 { 0% { transform: scaleX(0); } 33.28% { transform: scaleX(1); } 33.33%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab3 { 0%, 33.03% { opacity: 1; } 33.83%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+.canvas[style*="--n: 4"] { --cycle-anim: cs-cyc4; --cycle-bar: cs-cycbar4; --cycle-label: cs-cyclab4; }
+@keyframes cs-cyc4 { 0% { opacity: 0; transform: translateY(14px); } 2.50% { opacity: 1; transform: none; } 23.00% { opacity: 1; transform: none; } 25.00% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar4 { 0% { transform: scaleX(0); } 24.95% { transform: scaleX(1); } 25.00%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab4 { 0%, 24.70% { opacity: 1; } 25.50%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+.canvas[style*="--n: 5"] { --cycle-anim: cs-cyc5; --cycle-bar: cs-cycbar5; --cycle-label: cs-cyclab5; }
+@keyframes cs-cyc5 { 0% { opacity: 0; transform: translateY(14px); } 2.00% { opacity: 1; transform: none; } 18.40% { opacity: 1; transform: none; } 20.00% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar5 { 0% { transform: scaleX(0); } 19.95% { transform: scaleX(1); } 20.00%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab5 { 0%, 19.70% { opacity: 1; } 20.50%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+.canvas[style*="--n: 6"] { --cycle-anim: cs-cyc6; --cycle-bar: cs-cycbar6; --cycle-label: cs-cyclab6; }
+@keyframes cs-cyc6 { 0% { opacity: 0; transform: translateY(14px); } 1.67% { opacity: 1; transform: none; } 15.33% { opacity: 1; transform: none; } 16.67% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar6 { 0% { transform: scaleX(0); } 16.62% { transform: scaleX(1); } 16.67%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab6 { 0%, 16.37% { opacity: 1; } 17.17%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+.canvas[style*="--n: 7"] { --cycle-anim: cs-cyc7; --cycle-bar: cs-cycbar7; --cycle-label: cs-cyclab7; }
+@keyframes cs-cyc7 { 0% { opacity: 0; transform: translateY(14px); } 1.43% { opacity: 1; transform: none; } 13.14% { opacity: 1; transform: none; } 14.29% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar7 { 0% { transform: scaleX(0); } 14.24% { transform: scaleX(1); } 14.29%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab7 { 0%, 13.99% { opacity: 1; } 14.79%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+.canvas[style*="--n: 8"] { --cycle-anim: cs-cyc8; --cycle-bar: cs-cycbar8; --cycle-label: cs-cyclab8; }
+@keyframes cs-cyc8 { 0% { opacity: 0; transform: translateY(14px); } 1.25% { opacity: 1; transform: none; } 11.50% { opacity: 1; transform: none; } 12.50% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar8 { 0% { transform: scaleX(0); } 12.45% { transform: scaleX(1); } 12.50%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab8 { 0%, 12.20% { opacity: 1; } 13.00%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+.canvas[style*="--n: 9"] { --cycle-anim: cs-cyc9; --cycle-bar: cs-cycbar9; --cycle-label: cs-cyclab9; }
+@keyframes cs-cyc9 { 0% { opacity: 0; transform: translateY(14px); } 1.11% { opacity: 1; transform: none; } 10.22% { opacity: 1; transform: none; } 11.11% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar9 { 0% { transform: scaleX(0); } 11.06% { transform: scaleX(1); } 11.11%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab9 { 0%, 10.81% { opacity: 1; } 11.61%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+.canvas[style*="--n: 10"] { --cycle-anim: cs-cyc10; --cycle-bar: cs-cycbar10; --cycle-label: cs-cyclab10; }
+@keyframes cs-cyc10 { 0% { opacity: 0; transform: translateY(14px); } 1.00% { opacity: 1; transform: none; } 9.20% { opacity: 1; transform: none; } 10.00% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 0; } }
+@keyframes cs-cycbar10 { 0% { transform: scaleX(0); } 9.95% { transform: scaleX(1); } 10.00%, 100% { transform: scaleX(0); } }
+@keyframes cs-cyclab10 { 0%, 9.70% { opacity: 1; } 10.50%, 99.5% { opacity: .45; } 100% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .slide.is-active [data-cycle] { transform: none !important; } }

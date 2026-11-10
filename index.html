@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shine Onboarding Case Study</title>
+<!-- Phones (screens 600px wide or less) get the mobile version of this case study; laptops, desktops and tablets stay here.
+     Also switches live when the window is resized past 600px (e.g. browser dev tools). ?view=desktop keeps the slides on a phone. -->
+<script>
+(function () {
+  if (/[?&]view=desktop\b/.test(location.search) || !window.matchMedia) return;
+  var mq = matchMedia('(max-width: 600px)'), d = document.documentElement;
+  function css(t) { var s = document.createElement('style'); s.textContent = t; (document.head || d).appendChild(s); }
+  function target() { try { sessionStorage.setItem('csDeckUrl', location.href.split('#')[0]); } catch (e) {} return 'shine-onboarding-mobile.html'; }
+  /* arrived from a live switch: start covered, then fade the cover away once the page is ready */
+  var came = false; try { came = sessionStorage.getItem('csSwitch') === '1'; sessionStorage.removeItem('csSwitch'); } catch (e) {}
+  if (came && !mq.matches) {
+    css('html.cs-in::after{content:"";position:fixed;inset:0;z-index:2147483647;background:#FAF9F6;pointer-events:none;transition:opacity .45s ease}html.cs-in.cs-in-out::after{opacity:0}');
+    d.classList.add('cs-in');
+    addEventListener('load', function () { setTimeout(function () { d.classList.add('cs-in-out'); setTimeout(function () { d.classList.remove('cs-in', 'cs-in-out'); }, 500); }, 120); });
+  }
+  function go(live) {
+    var url = target();
+    if (!live || !document.body) { location.replace(url); return; }
+    try { sessionStorage.setItem('csSwitch', '1'); } catch (e) {}
+    css('.cs-sw{position:fixed;inset:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(250,249,246,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;transition:opacity .25s ease;font:600 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:#344054}.cs-sw.on{opacity:1}.cs-sw i{width:34px;height:34px;border-radius:50%;border:3px solid #EBF0FF;border-top-color:#0B3FCC;animation:cs-sw 0.8s linear infinite}@keyframes cs-sw{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.cs-sw i{animation-duration:2.4s}}');
+    var o = document.createElement('div'); o.className = 'cs-sw'; o.setAttribute('role', 'status');
+    o.innerHTML = '<i aria-hidden="true"></i><span>Switching to mobile view</span>';
+    document.body.appendChild(o); requestAnimationFrame(function () { o.classList.add('on'); });
+    setTimeout(function () { location.replace(url); }, 450);
+  }
+  if (mq.matches) { go(false); return; }
+  var f = function (e) { if (e.matches) go(true); };
+  if (mq.addEventListener) mq.addEventListener('change', f); else mq.addListener(f);
+})();
+</script>
+<meta name="description" content="Case study: redefining candidate onboarding at Shine.com, cutting registration drop-off by 61%.">
+
+<!-- Theme A · Field Report. All fonts are bundled in assets/fonts, no internet needed. -->
+<link rel="stylesheet" href="assets/case-study.css">
+<link rel="stylesheet" href="assets/themes/field-report.css">
+</head>
+<body data-return-url="/">
+
+<main class="deck" id="deck" tabindex="-1" aria-roledescription="carousel" aria-label="Shine candidate onboarding case study">
+  <div class="stage-wrap">
+    <div class="stage" id="stage">
+
+<!-- ====================================================================== 01 · Cover -->
+<section class="slide" data-title="Redesigned candidate onboarding">
+  <div class="canvas fr">
+    <div class="fr-panel bleed tint-brand-intense" style="left: 1232px; top: 0; width: 688px; height: 1080px"></div>
+    <div class="fr-abs" data-fit="fixed" style="left: 1376px; top: 160px"><div class="fr-device" style="width: 400px"><div class="fr-slot"><img src="assets/media/signup-landing.webp" alt="New Shine sign-up screen: let your resume fill your profile, with manual entry as the fallback"></div></div></div>
+
+    <div class="fr-abs" data-fit-v="center" style="left: 96px; top: 230px; width: 1110px; display: flex; flex-direction: column; align-items: flex-start">
+      <p class="fr-label brand" style="margin: 0 0 26px; font-size: 18px">Shine.com · Native app &amp; web</p>
+      <h1 style="margin: 0; font-size: 64px; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em">Redesigned candidate onboarding,<br><span class="fr-c-brand" style="white-space: nowrap">cutting registration drop-off<br>by more than half in 90 days</span></h1>
+      <div style="margin-top: 110px; margin-left: -8px; display: flex; align-items: flex-end; gap: 32px">
+        <span class="fr-num fr-hl" style="font-size: 320px; font-weight: 800; -webkit-text-stroke: 9px currentColor; paint-order: stroke fill; letter-spacing: -0.02em; background: linear-gradient(transparent 66%, var(--fr-accent) 66%, var(--fr-accent) 96%, transparent 96%)">61<small style="font-size: 0.62em; letter-spacing: -0.02em; -webkit-text-stroke-width: 6px">%</small></span>
+        <span style="font-size: 32px; font-weight: 700; line-height: 1.2; padding-bottom: 28px">less drop-off<br><span style="font-weight: 500; color: var(--fr-body)">from 94.8% to 36.6%</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 02 · Meet the team -->
+<section class="slide" data-title="Meet the team">
+  <div class="canvas fr" style="--fit-density: 1">
+    <div class="fr-panel bleed tint-brand-intense" style="left: 0; top: 0; width: 1920px; height: 1080px"></div>
+    <div class="fr-abs" data-fit="none" style="left: 96px; top: 0; height: 1080px; width: 560px; display: flex; flex-direction: column; justify-content: center; gap: 28px">
+      <span class="fr-label" style="color: var(--c-ey-400)">The people behind it</span>
+      <h2 class="fr-title-xl" style="color: #fff">Meet the<br>Team</h2>
+      <span class="fr-label" style="color: rgba(255,255,255,.6); margin-top: 26px">My role</span>
+      <p class="fr-p-lg" style="font-size: 24px; color: rgba(255,255,255,.88); margin-top: -14px">I owned the end-to-end experience and was responsible for delivering it. As a product designer, I also helped the product team define the strategy and vision for the feature.</p>
+    </div>
+    <div class="fr-abs fr-team" data-fit="fixed" data-fit-v="center" style="left: 752px; top: 170px; width: 1080px; height: 740px"><div class="fr-team-s t-violet" style="--o: 0px"><div class="fr-team-t"><em class="fr-team-me">Me</em><b>Rakesh<br>Mallick</b><span>Product Design Lead</span></div><img src="assets/media/team-1.webp" alt="Rakesh Mallick"></div><div class="fr-team-s t-aqua" style="--o: 60px"><div class="fr-team-t"><b>Jeevika<br>Agarwal</b><span>Product Designer</span></div><img src="assets/media/team-2.webp" alt="Jeevika Agarwal"></div><div class="fr-team-s t-pink" style="--o: 20px"><div class="fr-team-t"><b>Ashish<br>Anand Soni</b><span>Product Manager</span></div><img src="assets/media/team-3.webp" alt="Ashish Anand Soni" style="--nx: 26px"></div><div class="fr-team-s t-ey" style="--o: 80px"><div class="fr-team-t"><b>Dikshant<br>Goswami</b><span>Associate Product Manager</span></div><img class="sm" src="assets/media/team-4.webp" alt="Dikshant Goswami"></div></div>
+  </div>
+</section>
+
+<!-- ====================================================================== 03 · Business problem -->
+<section class="slide" data-title="Business problem">
+  <div class="canvas fr">
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 120px; font-size: 84px">Business Problem</h2>
+    <p class="fr-abs fr-sub" style="left: 96px; top: 232px; width: 1400px">Out of every 100 job seekers who start registering, 5 finish.</p>
+    <div class="fr-abs fr-tally-top" style="left: 96px; top: 340px; width: 1728px"><span><b>1,15,000</b> start every month</span><span>Visits: <b>92.8%</b> web · <b>7.2%</b> app</span></div>
+    <div class="fr-abs fr-tally-ticks" style="left: 96px; top: 400px; width: 1728px; height: 200px"><i class="y"></i><i class="y"></i><i class="y"></i><i class="y"></i><i class="y"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="fr-abs fr-tally-key" style="left: 96px; top: 636px; width: 1728px"><span class="y"><b>~6,000</b> finish · 5.2%</span><span class="r"><b>1,09,000</b> abandon · 94.8%</span></div>
+    <div class="fr-abs fr-tally-strip" style="left: 96px; top: 760px; width: 1728px">
+      <div class="fr-tcard tint-violet"><span class="fr-label fr-c-violet">Too small active DB</span><b>17 lacs</b><p>Few new sign-ups, and churned users never return.</p></div>
+      <div class="fr-tcard tint-ey"><span class="fr-label fr-c-amber">Too high CAC</span><b>₹22–24</b><p>High drop-off makes every sign-up expensive.</p></div>
+      <div class="fr-tcard tint-negative"><span class="fr-label fr-c-neg">Low recruiter</span><b>Renewals ↓</b><p>Low applies and a thin DB push recruiters away.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 04 · The solution that worked (resume-based onboarding, with its prototype recording) -->
+<section class="slide" data-intro="off" data-title="The solution that worked">
+  <div class="canvas fr fr-on-brand">
+    <div class="fr-abs" style="left: 96px; top: 72px; width: 1728px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+      <span class="fr-label brand" style="font-size: 18px">Live in production</span>
+      <h2 class="fr-title" style="font-size: 84px">The Solution That Worked</h2>
+      <p class="fr-sub" style="margin: 0; color: rgba(255,255,255,.82)">Smart resume-based onboarding</p>
+    </div>
+    <div class="fr-abs fr-glow" data-fit="fixed" style="left: 535px; top: 300px; width: 850px; height: 850px"></div>
+    <div class="fr-abs fr-orbit" data-fit="fixed" data-fit-v="center" style="left: 200px; top: 330px; width: 1520px; column-gap: 170px">
+      <div class="fr-stat-col" style="align-items: flex-end; text-align: right">
+        <div class="fr-stat fr-stat-hero"><b class="y">63%</b><span>completion rate</span></div>
+      <p class="fr-stat-note" style="font-size: 18px; opacity: .55">63 in 100 who start, now finish.</p>
+      </div>
+      <div class="fr-device" style="width: 380px">
+      <!-- a recording of the real prototype; plays from the start each time the slide opens (data-slide-video) -->
+      <div class="fr-slot"><video src="assets/media/final-resume.mp4" muted loop playsinline preload="auto" data-slide-video aria-label="Recording: sign-up with a resume, from upload to recommended jobs"></video></div>
+      </div>
+      <div class="fr-stat-col" style="gap: 152px">
+        <div class="fr-stat"><b class="y">94%</b><span>users' preferred path to onboard</span></div>
+        <div class="fr-stat"><b>61%</b><span>less drop-off in this flow</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 05 · Key success metrics (overall outcome) -->
+<section class="slide" data-intro="off" data-title="From losing users to winning them back">
+  <div class="canvas fr" style="--fit-density: 1">
+    <div class="fr-abs fr-bubbles-lead" data-fit="none" style="left: 96px; top: 40%; width: 720px; display: flex; flex-direction: column; gap: 0">
+      <span class="fr-label brand" data-in style="--d: 0; font-size: 18px; margin-bottom: 30px">Outcome &amp; impact</span>
+      <h2 class="fr-title-xl" data-in style="--d: 1; margin: 0; white-space: nowrap; font-size: 72px; line-height: 1.06">From Losing Users<br>to Winning Them Back</h2>
+      <p class="oc-lead" data-in style="--d: 2">In 90 days, the new onboarding brought <b>10× more sign-ups</b> and won back churned users.</p>
+      <div class="fr-bubbles-key" data-in style="--d: 3; margin-top: 64px"><i style="background: var(--fr-brand-fill)"></i><i style="background: var(--c-violet-500)"></i><i style="background: var(--c-aqua-500)"></i><i style="background: var(--c-pink-500)"></i><i style="background: var(--c-amber-600)"></i></div>
+    </div>
+    <div class="fr-abs rb-wrap fr-bubbles" data-fit="none" style="left: auto; right: 0; top: auto; bottom: 0; width: 1080px; height: 1080px; transform: scale(.86); transform-origin: 100% 100%">
+      <div class="rb c-blue" style="--d: 0; left: 428px; top: 422px; width: 652px; height: 652px"><div class="rb-in" style="left: 143px; top: 182px; width: 420px">
+        <b style="font-size: 128px">64<small>k</small></b><span style="font-size: 34px">Avg. Monthly<br>Registrations, in 90 Days</span><i style="width: 365px"></i><em style="font-size: 18px">UP FROM 6K · <u>10.7×</u></em></div></div>
+      <div class="rb c-violet" style="--d: 1; left: 214px; top: -39px; width: 524px; height: 524px"><div class="rb-in vc" style="--dd: 524"><span>Pre-existing &amp; churned users revived monthly</span><b>80<small>k</small></b><em class="pill">↑ up from 0</em></div></div>
+      <div class="rb c-aqua" style="--d: 3; left: -23px; top: 620px; width: 454px; height: 454px"><div class="rb-in vc" style="--dd: 454"><span>Monthly active database</span><b>21.3<small>&#160;lacs</small></b><em class="pill">↑ 25.4% from 17 lacs</em></div></div>
+      <div class="rb c-amber" style="--d: 4; left: -288px; top: 804px; width: 270px; height: 270px"><div class="rb-in vc" style="--dd: 270"><span style="font-size: 16px">CAC</span><b>₹8</b><em class="pill">↓ down from ₹22–24</em></div></div>
+      <div class="rb c-pink" style="--d: 2; left: 744px; top: 107px; width: 334px; height: 334px"><div class="rb-in vc" style="--dd: 334"><span>Overall drop-off rate</span><b>36.6<small>%</small></b><em class="pill">↓ down from 94.8%</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 06 · Chapter 01 -->
+<section class="slide" data-title="Problem identification">
+  <div class="canvas fr fr-on-brand">
+    <div class="fr-abs fr-square" style="left: 96px; top: 160px"></div>
+    <span class="fr-chapter-num">01</span>
+    <div class="fr-abs" data-fit-v="top" style="left: 1056px; top: 160px; width: 768px; display: flex; flex-direction: column; gap: 28px">
+      <span class="fr-label brand" style="font-size: 18px">Chapter 01</span>
+      <h2 class="fr-title-xl">Problem<br>Identification</h2>
+      <p class="fr-sub" style="margin-top: 14px">Only <b class="fr-mark">5.2%</b> of users complete registration, showing a major drop-off during onboarding.</p>
+      <div class="fr-list roomy" style="margin-top: 26px">
+      <div class="fr-row"><span class="fr-idx">07</span><span class="fr-txt">Digging deep into problems</span></div>
+      <div class="fr-row"><span class="fr-idx">08</span><span class="fr-txt">Funnel analysis</span></div>
+      <div class="fr-row"><span class="fr-idx">09</span><span class="fr-txt">Design critique</span></div>
+      <div class="fr-row"><span class="fr-idx">10</span><span class="fr-txt">User conversations</span></div>
+      <div class="fr-row"><span class="fr-idx">11</span><span class="fr-txt">Opportunities</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 07 · Digging deep -->
+<section class="slide" data-intro="off" data-title="Digging deep into problems">
+  <div class="canvas fr">
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 132px" data-in>Digging Deep Into Problems</h2>
+    <p class="fr-abs fr-sub" style="left: 96px; top: 232px; width: 1300px; --d: 1" data-in>To make sure no details were missed, we analysed our funnels, critiqued the existing design and talked to job seekers who had recently completed registration on Shine.</p>
+    <div class="fr-abs fr-qs" style="left: 96px; top: 430px; width: 1728px">
+      <div class="fr-q fr-q--brand" data-in style="--d: 2">
+        <span class="fr-q-n">01</span>
+        <h3 class="fr-q-h">Where do people <mark>drop off</mark>?</h3>
+        <div class="fr-q-m"><span class="fr-q-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span><div><b>Funnel analysis</b><p>One month of registration data, broken down by the path people choose to sign up.</p></div></div>
+      </div>
+      <div class="fr-q fr-q--violet" data-in style="--d: 3">
+        <span class="fr-q-n">02</span>
+        <h3 class="fr-q-h">What in the <mark>design</mark> causes it?</h3>
+        <div class="fr-q-m"><span class="fr-q-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><div><b>Design critique</b><p>A screen-by-screen review of the existing flow against usability heuristics.</p></div></div>
+      </div>
+      <div class="fr-q fr-q--aqua" data-in style="--d: 4">
+        <span class="fr-q-n">03</span>
+        <h3 class="fr-q-h">How does it <mark>feel</mark> to them?</h3>
+        <div class="fr-q-m"><span class="fr-q-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><div><b>Conversations with job seekers</b><p>Candidates who had recently completed registration on Shine walked us through what was hard.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 08 · Funnel analysis -->
+<section class="slide" data-title="Funnel analysis">
+  <div class="canvas fr">
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 132px">Funnel Analysis</h2>
+    <p class="fr-abs fr-sub" style="left: 96px; top: 232px">One month of candidate registration, broken down by the path people choose to sign up.</p>
+    <div class="fr-abs fr-flow-flow" style="left: 96px; top: 340px; width: 1728px; height: 380px">
+      <div class="fr-flow-col">
+        <span class="fr-label">Started</span>
+        <div class="fr-flow-block" style="height: 300px; background: var(--fr-brand-fill); color: #fff"><b>1,15,000</b><span>per month</span></div>
+      </div>
+      <span class="fr-flow-arrow" aria-hidden="true">→</span>
+      <div class="fr-flow-col">
+        <span class="fr-label">By path</span>
+        <div class="fr-flow-stack" style="height: 300px">
+          <div style="flex: 62; background: var(--surface-brand-brand-subtle); color: var(--fr-brand)"><b>71,300</b><span>Resume upload · 62%</span></div>
+          <div style="flex: 38; background: var(--surface-decorative-violet-subtle); color: var(--content-decorative-violet)"><b>43,700</b><span>Manual · 38%</span></div>
+        </div>
+      </div>
+      <div class="fr-flow-wedge">
+        <svg class="fr-flow-ribbon" viewBox="0 0 100 300" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0 L100 84 L100 186 L0 185 Z" fill="var(--fr-accent)" opacity=".42"/>
+        <path d="M0 193 L100 186 L100 216 L0 300 Z" fill="var(--fr-accent)" opacity=".26"/>
+      </svg>
+        <svg class="fr-flow-hatch" viewBox="0 0 100 300" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="fr-hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="14" fill="rgba(16,24,40,.08)"/></pattern></defs><path d="M0 0 L100 84 L100 216 L0 300 Z" fill="url(#fr-hatch)"/></svg>
+        <span class="fr-flow-blind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7c2.2 0 4 .8 5.5 1.8M22 12s-3.5 7-10 7c-2.2 0-4-.8-5.5-1.8"/><path d="M3 3l18 18"/></svg>No event tracking in place</span>
+      </div>
+      <div class="fr-flow-col fr-flow-col-done">
+        <span class="fr-label">Completed</span>
+        <div class="fr-flow-done">
+          <div class="fr-flow-end"><b>6,000</b><span>per month</span></div>
+          <div class="fr-flow-split"><span><i style="background: var(--fr-brand-fill)"></i>4,635 resume</span><span><i style="background: var(--content-decorative-violet)"></i>1,365 manual</span></div>
+        </div>
+      </div>
+      <span></span>
+      <div class="fr-flow-col fr-flow-col-out">
+        <span class="fr-label">Outcome</span>
+        <div class="fr-flow-out">
+          <b>5.2%</b>
+          <span>completion rate</span>
+          <em>94.8% drop off</em>
+        </div>
+      </div>
+    </div>
+    <div class="fr-abs fr-cols fr-cols-3" style="left: 96px; top: 790px; width: 1728px; gap: 56px">
+      <div class="fr-cell" style="gap: 10px"><span class="fr-num" style="font-size: 56px">5 in 100</span><h3 class="fr-h3">Only 5 in 100 finish</h3><p class="fr-p">Getting people to Shine isn't the problem. Signing them up is.</p></div>
+      <div class="fr-cell" style="gap: 10px"><span class="fr-num" style="font-size: 56px">2×</span><h3 class="fr-h3">The popular path fails too</h3><p class="fr-p">Resume upload converts 2× better than manual entry (6.5% vs 3.1%). 93 in 100 still walk away.</p></div>
+      <div class="fr-cell" style="gap: 10px"><span class="fr-num" style="font-size: 56px">~1,475</span><h3 class="fr-h3">Fixing the weaker path isn't enough</h3><p class="fr-p">Extra profiles a month from fixing manual entry. <b>Do candidates need to fill a form at all?</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 09 · Design critique (7 build steps, one issue at a time) -->
+<section class="slide" data-title="Design critique" data-steps="7" data-step-titles="Design critique · Preferred path buried|Design critique · Resume parsing fails|Design critique · Too many actions|Design critique · No steps in manual flow|Design critique · Off-brand visuals|Design critique · Dead ends|Design critique · Fields don't fit">
+  <div class="canvas fr">
+    <div class="fr-panel fr-panel-hold tint-none" style="left: 640px; top: 127px; width: 640px; height: 953px">
+      <div class="fr-hold-img fr-hand" style="width: 640px">
+        <!-- screen: drop a muted, looping <video> (or an <img>) inside this slot; it sits behind the hand -->
+        <div class="fr-slot fr-hand-screen" data-label="Screen recording goes here"></div>
+        <img src="assets/media/critique-hand-empty.webp" alt="A phone held in a hand">
+        <span class="fr-hand-island" aria-hidden="true"></span>
+      </div>
+    </div>
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 132px">Design Critique</h2>
+    <p class="fr-abs fr-sub" style="left: 96px; top: 232px; width: 540px">Key usability and flow issues observed in the existing experience.</p>
+    <div class="fr-abs" style="left: 96px; top: 400px; width: 420px; display: flex; flex-direction: column; gap: 24px"><span class="fr-label">Press → for the next issue</span><ol class="fr-focus-list"><li data-i="0"><b>01</b>Preferred path buried</li><li data-i="1"><b>02</b>Resume parsing fails</li><li data-i="2"><b>03</b>Too many actions</li><li data-i="3"><b>04</b>No steps in manual flow</li><li data-i="4"><b>05</b>Off-brand visuals</li><li data-i="5"><b>06</b>Dead ends</li><li data-i="6"><b>07</b>Fields don't fit</li></ol></div>
+    <div class="fr-abs cs-swap" style="left: 1324px; top: 440px; width: 500px"><div data-from="0" data-until="0" class="fr-focus"><span class="fr-focus-count"><b>01</b> / 07</span><p>Resume upload, the faster path, gets no visual priority over the manual form</p></div><div data-from="1" data-until="1" class="fr-focus"><span class="fr-focus-count"><b>02</b> / 07</span><p>8 in 10 uploaded resumes fail to parse, leaving most fields empty</p></div><div data-from="2" data-until="2" class="fr-focus"><span class="fr-focus-count"><b>03</b> / 07</span><p>Too many actions on one screen, slowing every decision</p></div><div data-from="3" data-until="3" class="fr-focus"><span class="fr-focus-count"><b>04</b> / 07</span><p>Manual registration is one long form, not divided into clear, sequential steps</p></div><div data-from="4" data-until="4" class="fr-focus"><span class="fr-focus-count"><b>05</b> / 07</span><p>Dated visuals that don't follow Shine's brand language</p></div><div data-from="5" data-until="5" class="fr-focus"><span class="fr-focus-count"><b>06</b> / 07</span><p>Unhandled edge cases leave users stuck with no way forward</p></div><div data-from="6" data-until="6" class="fr-focus"><span class="fr-focus-count"><b>07</b> / 07</span><p>No internships, no work mode, salary asked of freshers</p><span class="fr-focus-more">…and many more gaps that push users to quit.</span></div></div>
+  </div>
+</section>
+
+<!-- ====================================================================== 10 · User conversations (7 of 15 recent completers) -->
+<section class="slide" data-title="User conversations">
+  <div class="canvas fr">
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 132px">Talking to Job Seekers</h2>
+    <p class="fr-abs fr-sub" style="left: 96px; top: 232px">We spoke with job seekers who had just completed onboarding on the old flow.</p>
+    <div class="fr-abs" style="left: 96px; top: 340px; width: 1728px"><div class="fr-fg-ts auto"><div class="fr-fg-t"><b>15</b><span>recently completed onboarding</span></div><div class="fr-fg-t hi"><b>7</b><span>agreed to talk with us</span></div><div class="fr-fg-t"><b>1</b><span>of them was a fresher</span></div></div>
+    <div class="fr-fg-rs" style="margin-top: 80px"><div class="fr-fg-r"><i>01</i><div><b>Resume parsing kept failing</b><p>Most tried resume upload first and had to finish on the manual form.</p></div><span class="fr-fg-o">→ Opportunity 03</span></div><div class="fr-fg-r"><i>02</i><div><b>No place for internships</b><p>The form had no field to add an internship.</p></div><span class="fr-fg-o">→ Opportunity 06</span></div><div class="fr-fg-r"><i>03</i><div><b>Salary asked of a fresher</b><p>Our fresher, an unpaid intern, still had to enter salary and notice period.</p></div><span class="fr-fg-o">→ Opportunity 06</span></div><div class="fr-fg-r"><i>04</i><div><b>Drained by the form</b><p>All 7 finished, but said the long form wore them out.</p></div><span class="fr-fg-o">→ Opportunity 01</span></div></div></div>
+  </div>
+</section>
+
+<!-- ====================================================================== 11 · Opportunities (fan: one goal → six opportunities, animated) -->
+<section class="slide" data-intro="off" data-title="Opportunities">
+  <div class="canvas fr">
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 132px">Opportunities</h2>
+    <p class="fr-abs fr-sub" style="left: 96px; top: 232px; width: 600px">Six opportunities from the problems we found, all serving one goal.</p>
+    <div class="fr-abs fr-fan" data-fit="fixed" data-fit-v="top" style="left: 0; top: 320px; width: 1920px; height: 720px"><div style="position: absolute; left: 0; top: -280px; width: 1920px; height: 1080px">
+      <div class="fr-fan-halo" style="left: 100px; top: 410px; width: 460px; height: 460px"></div>
+      <svg class="fr-fan-svg" viewBox="0 0 1920 1080" aria-hidden="true"><path class="fr-fan-line" style="--i: 0" d="M 494 640 C 640 640, 640 290, 790 290" stroke="#082A85"/><path class="fr-fan-line" style="--i: 1" d="M 494 640 C 640 640, 640 430, 790 430" stroke="#0B3FCC"/><path class="fr-fan-line" style="--i: 2" d="M 494 640 C 640 640, 640 570, 790 570" stroke="#1F52DD"/><path class="fr-fan-line" style="--i: 3" d="M 494 640 C 640 640, 640 710, 790 710" stroke="#3563E8"/><path class="fr-fan-line" style="--i: 4" d="M 494 640 C 640 640, 640 850, 790 850" stroke="#4A74EE"/><path class="fr-fan-line" style="--i: 5" d="M 494 640 C 640 640, 640 990, 790 990" stroke="#5F84F2"/></svg>
+      <div class="fr-fan-hub" style="left: 160px; top: 470px; width: 340px; height: 340px"><span>One goal</span><b>Finish registration</b></div>
+      <div class="fr-fan-row" style="--i: 0; top: 238px; --f: #082A85; --t: #EEF2FF; --d: #0B3FCC"><span class="fr-fan-n">01</span><div><b>Simplify step completion</b><p>How might we break registration into short, logical steps?</p></div></div><div class="fr-fan-row" style="--i: 1; top: 378px; --f: #0B3FCC; --t: #EEF2FF; --d: #0B3FCC"><span class="fr-fan-n">02</span><div><b>Make resume upload the hero path</b><p>How might we make the faster resume route the obvious first choice?</p></div></div><div class="fr-fan-row" style="--i: 2; top: 518px; --f: #1F52DD; --t: #EEF2FF; --d: #0B3FCC"><span class="fr-fan-n">03</span><div><b>Make resume parsing reliable</b><p>How might we turn an uploaded resume into correctly filled fields?</p></div></div><div class="fr-fan-row" style="--i: 3; top: 658px; --f: #3563E8; --t: #EEF2FF; --d: #0B3FCC"><span class="fr-fan-n">04</span><div><b>Reduce friction with real-time validation</b><p>How might we catch errors as people type, not at the end?</p></div></div><div class="fr-fan-row" style="--i: 4; top: 798px; --f: #4A74EE; --t: #EEF2FF; --d: #0B3FCC"><span class="fr-fan-n">05</span><div><b>Remove dead ends</b><p>How might we give every user a way forward, whatever their situation?</p></div></div><div class="fr-fan-row" style="--i: 5; top: 938px; --f: #5F84F2; --t: #EEF2FF; --d: #0B3FCC"><span class="fr-fan-n">06</span><div><b>Fit every career stage</b><p>How might we let freshers, interns and experienced users describe themselves accurately?</p></div></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ====================================================================== 12 · Chapter 02 -->
+<section class="slide" data-title="Possible solution">
+  <div class="canvas fr fr-on-brand">
+    <div class="fr-abs fr-square" style="left: 96px; top: 160px"></div>
+    <span class="fr-chapter-num">02</span>
+    <div class="fr-abs" data-fit-v="top" style="left: 1056px; top: 160px; width: 768px; display: flex; flex-direction: column; gap: 28px">
+      <span class="fr-label brand" style="font-size: 18px">Chapter 02</span>
+      <h2 class="fr-title-xl">Possible<br>Solution</h2>
+      <p class="fr-sub" style="margin-top: 14px">Based on the evaluation, we finalised two solutions to address key onboarding and registration challenges.</p>
+      <div class="fr-list roomy" style="margin-top: 26px">
+      <div class="fr-row"><span class="fr-idx">13</span><span class="fr-txt">Solutions explored and chosen</span></div>
+      <div class="fr-row"><span class="fr-idx">14</span><span class="fr-txt">Proposed solution 1</span></div>
+      <div class="fr-row"><span class="fr-idx">15</span><span class="fr-txt">Proposed solution 2</span></div>
+      <div class="fr-row"><span class="fr-idx">16</span><span class="fr-txt">Usability test (round 1)</span></div>
+      <div class="fr-row"><span class="fr-idx">17</span><span class="fr-txt">Key takeaways</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 13 · Solutions explored → chosen (counter, 2-step build) -->
+<!-- Step 0 shows the four options and "4 directions explored". → flips to "2 taken forward" and marks the chosen two. -->
+<section class="slide" data-title="Solutions explored" data-steps="2" data-step-titles="Solutions explored|Solutions chosen">
+  <div class="canvas fr">
+    <div class="fr-panel bleed tint-brand-intense" style="left: 0; top: 0; width: 640px; height: 1080px"></div>
+    <div class="fr-abs fr-count-head" style="left: 96px; top: 132px; width: 470px">
+      <div class="cs-swap"><h2 class="fr-title" data-until="0">Possible Solutions</h2><h2 class="fr-title" data-from="1" style="--sd: 120ms">Solutions Chosen</h2></div>
+      <div class="cs-swap"><p class="fr-sub" data-until="0">Four directions we evaluated for the new onboarding.</p><p class="fr-sub" data-from="1" style="--sd: 220ms">Based on the evaluation, we finalised two solutions.</p></div>
+    </div>
+    <div class="fr-abs cs-swap fr-count-num" style="left: 84px; top: 540px"><span data-until="0">4</span><span data-from="1" class="y" style="--sd: 300ms">2</span></div>
+    <span class="fr-abs fr-label fr-count-cap" style="left: 102px; top: 912px"><span class="cs-swap"><span data-until="0">directions explored</span><span data-from="1" class="y" style="--sd: 300ms">taken forward</span></span></span>
+    <div class="fr-abs fr-count-list" style="left: 736px; top: 132px; width: 1088px"><div class="fr-count-row chosen"><b>01</b><div><h3>Structured and progressive registration flow</h3><p>Onboarding is redesigned into clear, sequential steps with logical grouping, visual progress indicators, and real-time validation for better completion rates.</p></div><span class="cs-swap fr-count-tag"><span class="fr-label" data-until="0">Option 1</span><span class="fr-stag on" data-from="1" style="--sd: 900ms">Solution 2</span></span></div><div class="fr-count-row dropped"><b>02</b><div><h3>Quick start registration</h3><p>Users create an account with minimal mandatory details and complete the remaining profile after onboarding.</p></div><span class="cs-swap fr-count-tag"><span class="fr-label" data-until="0">Option 2</span><span class="fr-stag off" data-from="1" style="--sd: 150ms">Not pursued</span></span></div><div class="fr-count-row dropped"><b>03</b><div><h3>Assisted onboarding support (chat bot)</h3><p>A support executive or virtual assistant guides job seekers step by step through registration when they face difficulties.</p></div><span class="cs-swap fr-count-tag"><span class="fr-label" data-until="0">Option 3</span><span class="fr-stag off" data-from="1" style="--sd: 150ms">Not pursued</span></span></div><div class="fr-count-row chosen"><b>04</b><div><h3>Smart resume-based onboarding</h3><p>Users upload a resume once, and the system auto-extracts details to prefill forms for quick review and edits.</p></div><span class="cs-swap fr-count-tag"><span class="fr-label" data-until="0">Option 4</span><span class="fr-stag on" data-from="1" style="--sd: 750ms">Solution 1</span></span></div></div>
+  </div>
+</section>
+
+<!-- ====================================================================== 14 · Proposed solution 1 · Smart resume-based onboarding (auto-plays 5 screens) -->
+<section class="slide" data-intro="off" data-title="Proposed solution 1 · Smart resume-based onboarding">
+  <div class="canvas fr fr-on-brand" style="--n: 5; --loop: 12.5s">
+    <div class="fr-abs" style="left: 96px; top: 72px; width: 1728px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+      <span class="fr-label brand" style="font-size: 18px">Proposed solution 1</span>
+      <h2 class="fr-title" style="font-size: 72px">Smart Resume-Based Onboarding</h2>
+    </div>
+    <div class="fr-abs fr-glow" data-fit="fixed" style="left: 535px; top: 300px; width: 850px; height: 850px"></div>
+    <div class="fr-abs fr-orbit" data-fit="fixed" data-fit-v="center" style="left: 200px; top: 330px; width: 1520px">
+      <div class="cs-swap fr-cyc-left"><div class="fr-cyc-step" data-cycle style="--k: 0; --sd: 120ms"><span>Start</span><b>Method</b></div><div class="fr-cyc-step" data-cycle style="--k: 1; --sd: 120ms"><span>Step 1</span><b>Resume parsing</b></div><div class="fr-cyc-step" data-cycle style="--k: 2; --sd: 120ms"><span>Step 2</span><b>Verify details</b></div><div class="fr-cyc-step" data-cycle style="--k: 3; --sd: 120ms"><span>Step 3</span><b>Verify contact</b></div><div class="fr-cyc-step" data-cycle style="--k: 4; --sd: 120ms"><span>Step 4</span><b>Job preferences</b></div></div>
+      <div class="fr-device" style="width: 380px"><div class="fr-slot-stack"><div class="fr-slot" data-cycle style="--k: 0"><img src="assets/media/iter1-method.webp" alt="Sign-up screen: upload resume or fill details manually"></div><div class="fr-slot" data-cycle style="--k: 1"><img src="assets/media/iter1-r-parse.webp" alt="Reading your resume: scanning, basic details and education done, experience reading"></div><div class="fr-slot" data-cycle style="--k: 2"><img src="assets/media/iter1-r-verify.webp" alt="Verify details: 98% match, basic details and employment pulled from the resume"></div><div class="fr-slot" data-cycle style="--k: 3"><img src="assets/media/iter1-r-otp.webp" alt="Enter OTP to verify mobile number"></div><div class="fr-slot" data-cycle style="--k: 4"><img src="assets/media/iter1-r-prefs.webp" alt="Job preferences: roles, cities and expected salary"></div></div></div>
+      <div class="cs-swap fr-cyc-right"><p class="fr-cyc-cap" data-cycle style="--k: 0; --sd: 220ms">Flexible entry points with a choice of onboarding method</p><p class="fr-cyc-cap" data-cycle style="--k: 1; --sd: 220ms">Upload a resume once and the system extracts the details</p><p class="fr-cyc-cap" data-cycle style="--k: 2; --sd: 220ms">Pre-filled fields are reviewed and edited, not typed from scratch</p><p class="fr-cyc-cap" data-cycle style="--k: 3; --sd: 220ms">Verify the mobile number to finish registration</p><p class="fr-cyc-cap" data-cycle style="--k: 4; --sd: 220ms">Preferences help the system deliver more personalised job matches</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 15 · Proposed solution 2 · Structured &amp; progressive registration flow (auto-plays 9 screens) -->
+<section class="slide" data-intro="off" data-title="Proposed solution 2 · Structured &amp; progressive registration flow">
+  <div class="canvas fr fr-on-brand" style="--n: 9; --loop: 22.5s">
+    <div class="fr-abs" style="left: 96px; top: 72px; width: 1728px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+      <span class="fr-label brand" style="font-size: 18px">Proposed solution 2</span>
+      <h2 class="fr-title" style="font-size: 72px">Structured &amp; Progressive Registration Flow</h2>
+    </div>
+    <div class="fr-abs fr-glow" data-fit="fixed" style="left: 535px; top: 300px; width: 850px; height: 850px"></div>
+    <div class="fr-abs fr-orbit" data-fit="fixed" data-fit-v="center" style="left: 200px; top: 330px; width: 1520px">
+      <div class="cs-swap fr-cyc-left"><div class="fr-cyc-step" data-cycle style="--k: 0; --sd: 120ms"><span>Start</span><b>Method</b></div><div class="fr-cyc-step" data-cycle style="--k: 1; --sd: 120ms"><span>Step 1</span><b>Personal</b></div><div class="fr-cyc-step" data-cycle style="--k: 2; --sd: 120ms"><span>Step 2</span><b>Education</b></div><div class="fr-cyc-step" data-cycle style="--k: 3; --sd: 120ms"><span>Branch</span><b>Status</b></div><div class="fr-cyc-step" data-cycle style="--k: 4; --sd: 120ms"><span>Step 3</span><b>Employment</b></div><div class="fr-cyc-step" data-cycle style="--k: 5; --sd: 120ms"><span>Step 4</span><b>Skills</b></div><div class="fr-cyc-step" data-cycle style="--k: 6; --sd: 120ms"><span>Step 5</span><b>Preferences</b></div><div class="fr-cyc-step" data-cycle style="--k: 7; --sd: 120ms"><span>Step 6</span><b>Verify contact</b></div><div class="fr-cyc-step" data-cycle style="--k: 8; --sd: 120ms"><span>Step 7</span><b>Upload resume</b></div></div>
+      <div class="fr-device" style="width: 380px"><div class="fr-slot-stack"><div class="fr-slot" data-cycle style="--k: 0"><img src="assets/media/iter1-method.webp" alt="Sign-up screen: upload resume or fill details manually"></div><div class="fr-slot" data-cycle style="--k: 1"><img src="assets/media/iter1-m-basic.webp" alt="Basic details: name, email, mobile, gender, date of birth, salary"></div><div class="fr-slot" data-cycle style="--k: 2"><img src="assets/media/iter1-m-edu.webp" alt="Education: B.E./B.Tech. Computer Science, IIT Delhi"></div><div class="fr-slot" data-cycle style="--k: 3"><img src="assets/media/iter1-m-status.webp" alt="Have you worked before? Fresher or experienced"></div><div class="fr-slot" data-cycle style="--k: 4"><img src="assets/media/iter1-m-emp.webp" alt="Employment: job title, company and employment type (Full Time) chosen from a dropdown"></div><div class="fr-slot" data-cycle style="--k: 5"><img src="assets/media/iter1-m-skills.webp" alt="Key skills: four skills added with suggestions"></div><div class="fr-slot" data-cycle style="--k: 6"><img src="assets/media/iter1-m-prefs.webp" alt="Preferences: roles and cities picked"></div><div class="fr-slot" data-cycle style="--k: 7"><img src="assets/media/iter1-m-otp.webp" alt="Enter OTP to verify mobile number"></div><div class="fr-slot" data-cycle style="--k: 8"><img src="assets/media/iter1-m-resume.webp" alt="Add your resume: Resume = Visibility, upload or skip for now"></div></div></div>
+      <div class="cs-swap fr-cyc-right"><p class="fr-cyc-cap" data-cycle style="--k: 0; --sd: 220ms">Flexible entry points with a choice of onboarding method</p><p class="fr-cyc-cap" data-cycle style="--k: 1; --sd: 220ms">Required details are segmented into logical steps for faster, error-free completion</p><p class="fr-cyc-cap" data-cycle style="--k: 2; --sd: 220ms">Education details help recruiters understand a candidate's background</p><p class="fr-cyc-cap" data-cycle style="--k: 3; --sd: 220ms">Adaptive flow tailors steps to the user's experience level</p><p class="fr-cyc-cap" data-cycle style="--k: 4; --sd: 220ms">Past roles and organisations help recruiters understand a candidate's expertise</p><p class="fr-cyc-cap" data-cycle style="--k: 5; --sd: 220ms">Capturing skills with experience improves search relevance and match quality</p><p class="fr-cyc-cap" data-cycle style="--k: 6; --sd: 220ms">Preferences help the system deliver more personalised job matches</p><p class="fr-cyc-cap" data-cycle style="--k: 7; --sd: 220ms">Verify the mobile number to finish registration</p><p class="fr-cyc-cap" data-cycle style="--k: 8; --sd: 220ms">A resume can still be added at the end to complete the profile</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 16 · Usability test (round 1) -->
+<section class="slide" data-title="Usability test (round 1)">
+  <div class="canvas fr">
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 132px">Usability Test (Round 1)</h2>
+    <div class="fr-abs" style="left: 96px; top: 232px; width: 740px; display: flex; flex-direction: column; gap: 40px">
+      <p class="fr-sub" style="margin: 0">20 real users, freshers and experienced, tried the redesigned step-by-step flow.</p>
+      <div class="fr-cell brand" id="ut1-goal" style="gap: 12px; padding-top: 34px"><span class="fr-label brand">Goal</span><p class="fr-p-lg">Check whether the new flow was clear, understood and easy to move through.</p></div>
+    </div>
+    <div class="fr-abs fr-cols fr-cols-2" style="left: 96px; top: 660px; width: 740px; gap: 24px">
+      <div class="fr-photo" style="height: 300px; align-items: center"><img src="assets/media/test-photo-1.webp" alt="A participant testing the new flow on a laptop" style="width: 100%"></div>
+      <div class="fr-photo" style="height: 300px; align-items: center"><img src="assets/media/test-photo-2.webp" alt="A participant testing the new flow on a laptop" style="width: 100%"></div>
+    </div>
+    <div class="fr-abs fr-ut" data-fit-v="top" data-align-top="#ut1-goal" style="left: 1000px; top: 351px; width: 824px">
+      <div class="fr-ut-r warn"><div class="fr-ut-k"><span class="fr-ut-num">13<small>/20</small></span><b>Chose resume upload</b></div><div class="fr-ut-v"><div class="fr-ut-dots" role="img" aria-label="13 of 20 participants"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p>Yet the number of steps and wrongly parsed details frustrated them.</p></div></div>
+      <div class="fr-ut-r warn"><div class="fr-ut-k"><span class="fr-ut-num">40<sup>%</sup></span><b>Still wanted to drop off</b></div><div class="fr-ut-v"><div class="fr-ut-dots" role="img" aria-label="8 of 20 participants"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p>Too many steps. Competitors ask just as many, so the real gap is trust.</p></div></div>
+      <div class="fr-ut-r good"><div class="fr-ut-k"><span class="fr-ut-num">20<small>/20</small></span><b>Found instructions clear</b></div><div class="fr-ut-v"><div class="fr-ut-dots" role="img" aria-label="20 of 20 participants"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i></div><p>Every user understood the labels and instructions.</p></div></div>
+      <div class="fr-ut-r good"><div class="fr-ut-k"><span class="fr-ut-num">16<small>/20</small></span><b>Finished on their own</b></div><div class="fr-ut-v"><div class="fr-ut-dots" role="img" aria-label="16 of 20 participants"><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i class=on></i><i></i><i></i><i></i><i></i></div><p>Only 4 of 20 needed help to complete onboarding.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 17 · Key takeaways -->
+<section class="slide" data-title="Key takeaways">
+  <div class="canvas fr" style="--fit-density: 1">
+    <div class="fr-panel fr-panel-hold tint-none" style="left: 1265px; top: 210px; width: 580px; height: 870px">
+      <div class="fr-hold-img fr-hand" style="width: 580px">
+        <!-- screen: drop the muted, looping resume-onboarding <video> (or an <img>) inside this slot; it sits behind the hand -->
+        <div class="fr-slot fr-hand-screen" data-label="Screen recording goes here"></div>
+        <img src="assets/media/critique-hand-empty.webp" alt="A phone held in a hand">
+        <span class="fr-hand-island" aria-hidden="true"></span>
+      </div>
+    </div>
+    <h2 class="fr-abs fr-title" style="left: 96px; top: 132px">Key Takeaways</h2>
+    <p class="fr-abs fr-sub" style="left: 96px; top: 232px; width: 1040px">What round 1 told us, and what we changed.</p>
+    <div class="fr-abs fr-kt" style="left: 96px; top: 360px; width: 1040px">
+      <span class="fr-label">What we heard</span><span class="fr-label pos">What we changed</span>
+        <div class="fr-kt-r"><p>Resume onboarding still felt long at 5 steps</p><i><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Trimmed to 3 steps, focused on required details only</b></div>
+        <div class="fr-kt-r"><p>Manual users wanted to switch to a resume midway</p><i><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Resume upload offered at multiple stages of the manual flow</b></div>
+        <div class="fr-kt-r"><p>Numbered steps made the manual flow feel endless</p><i><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>A progress bar replaced the step counter to ease fatigue</b></div>
+        <div class="fr-kt-r"><p>Mistakes only showed after submitting</p><i><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Fields now check input as users type</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 18 · Chapter 03 · final design (resume and manual prototypes side by side, with a switch) -->
+<!-- Final design: one slide. Clicking the segment control switches the phone between the two onboarding types;
+     → and ← go to the next / previous slide (data-step-nav="click").
+     Fill each .fr-slot with the final screens, a recording or a prototype, e.g.
+     <div class="fr-slot" data-until="0"><img src="your-image.webp" alt="…"></div> -->
+<section class="slide" data-intro="off" data-title="The happy path" data-steps="2" data-step-nav="click" data-step-titles="The happy path · Resume-based onboarding|The happy path · Manual onboarding">
+  <div class="canvas fr fr-on-brand">
+    <div class="fr-abs" style="left: 96px; top: 72px; width: 1728px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+      <span class="fr-label brand" style="font-size: 18px">The happy flow</span>
+      <h2 class="fr-title" style="font-size: 76px">Final Iteration Before Development</h2>
+    </div>
+    <!-- the switch flips the slide between state 0 (resume plays, manual paused) and state 1 (manual plays, resume paused) -->
+    <div class="fr-abs fr-tg" data-fit="fixed" data-fit-v="center" style="left: 96px; top: 250px; width: 1728px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; column-gap: 110px">
+      <div class="fr-tg-side l" style="display: flex; flex-direction: column; align-items: center; gap: 24px">
+        <div class="fr-tg-top"><span class="fr-tg-h">Resume-based onboarding</span><i class="fr-tg-arr" aria-hidden="true"><svg viewBox="0 0 16 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v22M3 19l5 5 5-5"/></svg></i></div>
+        <div class="fr-device" style="width: 360px"><div class="fr-slot"><video src="assets/media/iter2-resume.mp4" muted loop playsinline preload="auto" data-step-video="0" aria-label="Recording: resume-based sign-up, from upload to the welcome screen"></video></div></div>
+      </div>
+      <div class="fr-tg-mid" style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+<span class="fr-tg-lab">Resume</span>
+        <button type="button" class="fr-tg-sw" data-step-toggle role="switch" aria-checked="false" aria-label="Switch between resume-based and manual onboarding"><i></i><span class="a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 18v-6M9 15l3-3 3 3"/></svg></span><span class="b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span></button>
+        <span class="fr-tg-lab">Manual</span>
+        <div class="fr-tg-cur" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 7-6 2-2 6z" fill="#fff" stroke="#0D1117" stroke-width="1.6" stroke-linejoin="round"/></svg></div><div class="fr-tg-tip" role="status"><b>Click</b>to switch flows</div>
+      </div>
+      <div class="fr-tg-side r" style="display: flex; flex-direction: column; align-items: center; gap: 24px">
+        <div class="fr-tg-top"><span class="fr-tg-h">Manual onboarding</span><i class="fr-tg-arr" aria-hidden="true"><svg viewBox="0 0 16 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v22M3 19l5 5 5-5"/></svg></i></div>
+        <div class="fr-device" style="width: 360px"><div class="fr-slot"><video src="assets/media/iter2-manual.mp4" muted loop playsinline preload="auto" data-step-video="1" aria-label="Recording: manual sign-up, step by step, to the welcome screen"></video></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 20 · What we learnt after release -->
+<section class="slide" data-title="What we learnt">
+  <div class="canvas fr" style="--fit-density: 1">
+    <div class="fr-panel bleed tint-brand-intense" style="left: 0; top: 0; width: 600px; height: 1080px"></div>
+    <div class="fr-abs fr-lw-side" style="left: 96px; top: 132px; width: 420px">
+      <span class="fr-label">After launch</span>
+      <p class="fr-lw-lead">The numbers fell short of our goals.</p>
+      <div class="fr-lw-num"><em>Resume-based · drop-off cut</em><b>27%</b><span>vs 45–50% expected</span></div>
+      <div class="fr-lw-num"><em>Manual · improvement</em><b>7%</b><span>vs 20–25% expected</span></div>
+    </div>
+    <h2 class="fr-abs fr-title" style="left: 700px; top: 132px">Learn, Refine, Rethink</h2>
+    <div class="fr-abs fr-lw-main" style="left: 700px; top: 296px; width: 1124px">
+      <table class="fr-lw-m"><thead><tr><th>What we refined</th><th>Resume-based</th><th>Manual</th></tr></thead><tbody><tr><td>User ID creation</td><td><s>Step 3</s><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Step 1</b></td><td><s>Last step</s><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Step 1</b></td></tr><tr><td>Job preferences</td><td><s>Required</s><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Optional</b></td><td><s>Required</s><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Last, optional</b></td></tr><tr><td>Resume</td><td><span class="na">—</span></td><td><s>Optional</s><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i><b>Required</b></td></tr></tbody></table>
+      <div class="fr-lw-prob">
+      <p>Competitors do well with a similar manual flow. So we looked beyond the form and found two paths.</p>
+      <div class="fr-lw-strip two"><div class="lead"><em>Path 1</em><b>More people starting</b><span>Grow the top of the funnel.</span></div><div><b>More organic jobs</b><span>More real jobs bring in more job seekers.</span></div><div><b>Higher apply rate</b><span>More applies lead to more onboarding starts.</span></div></div>
+      <div class="fr-lw-strip two"><div class="lead"><em>Path 2</em><b>Relevance &amp; speed</b><span>Job seekers said these build trust, which is low today.</span></div><div><b>Dash</b><span>A job-hunt agent that sends relevant jobs on WhatsApp.</span></div><div><b>Swift</b><span>An autofill agent that fills career site forms quickly.</span></div></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== 21 · Thank you -->
+<section class="slide" data-intro="off" data-title="Thank you">
+  <div class="canvas fr" style="--fit-density: 1">
+    <div class="fr-panel bleed fr-ty-sky" style="left: 0; top: 0; width: 1920px; height: 1080px"><i class="fr-ty-cf" style="left:663px; background:#FACC15; --d:5.6s; --dl:-0.4s; --r:-734deg; width:18px; height:16px"></i><i class="fr-ty-cf" style="left:1863px; background:#14B8A6; --d:4.9s; --dl:-0.7s; --r:431deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:1128px; background:#3563E8; --d:4.2s; --dl:-4.5s; --r:-423deg; width:18px; height:28px"></i><i class="fr-ty-cf" style="left:812px; background:#0B3FCC; --d:7.9s; --dl:-0.4s; --r:-656deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:1107px; background:#0B3FCC; --d:6.3s; --dl:-4.5s; --r:-465deg; width:18px; height:28px"></i><i class="fr-ty-cf" style="left:1308px; background:#FACC15; --d:5.5s; --dl:-4.4s; --r:-421deg; width:18px; height:16px"></i><i class="fr-ty-cf" style="left:1016px; background:#F472B6; --d:6.1s; --dl:-6.2s; --r:824deg; width:14px; height:22px"></i><i class="fr-ty-cf" style="left:508px; background:#FACC15; --d:6.8s; --dl:-2.0s; --r:897deg; width:14px; height:22px"></i><i class="fr-ty-cf" style="left:1493px; background:#3563E8; --d:5.2s; --dl:-7.8s; --r:-884deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:1550px; background:#0D1117; --d:4.6s; --dl:-3.9s; --r:-439deg; width:18px; height:28px"></i><i class="fr-ty-cf" style="left:1616px; background:#0D1117; --d:5.4s; --dl:-2.8s; --r:827deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:552px; background:#3563E8; --d:6.8s; --dl:-0.5s; --r:816deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:790px; background:#F472B6; --d:5.4s; --dl:-7.5s; --r:532deg; width:18px; height:16px"></i><i class="fr-ty-cf" style="left:1011px; background:#0B3FCC; --d:4.9s; --dl:-2.3s; --r:-767deg; width:14px; height:22px"></i><i class="fr-ty-cf" style="left:165px; background:#FACC15; --d:5.8s; --dl:-4.4s; --r:-800deg; width:18px; height:22px"></i><i class="fr-ty-cf" style="left:1446px; background:#3563E8; --d:7.9s; --dl:-5.5s; --r:596deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:360px; background:#FACC15; --d:4.9s; --dl:-1.9s; --r:546deg; width:14px; height:22px"></i><i class="fr-ty-cf" style="left:8px; background:#FACC15; --d:5.7s; --dl:-3.0s; --r:488deg; width:18px; height:28px"></i><i class="fr-ty-cf" style="left:1264px; background:#F472B6; --d:6.7s; --dl:-0.4s; --r:767deg; width:14px; height:22px"></i><i class="fr-ty-cf" style="left:212px; background:#3563E8; --d:6.5s; --dl:-0.5s; --r:-573deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:225px; background:#0D1117; --d:6.4s; --dl:-0.8s; --r:-463deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:52px; background:#0B3FCC; --d:7.5s; --dl:-4.9s; --r:-618deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:745px; background:#3563E8; --d:4.5s; --dl:-6.8s; --r:851deg; width:14px; height:22px"></i><i class="fr-ty-cf" style="left:175px; background:#FACC15; --d:4.4s; --dl:-2.7s; --r:850deg; width:18px; height:16px"></i><i class="fr-ty-cf" style="left:1057px; background:#0B3FCC; --d:4.8s; --dl:-7.6s; --r:510deg; width:18px; height:28px"></i><i class="fr-ty-cf" style="left:1872px; background:#0B3FCC; --d:7.0s; --dl:-2.4s; --r:-627deg; width:18px; height:22px"></i><i class="fr-ty-cf" style="left:1860px; background:#FACC15; --d:5.4s; --dl:-1.8s; --r:588deg; width:18px; height:16px"></i><i class="fr-ty-cf" style="left:1650px; background:#FACC15; --d:7.3s; --dl:-5.9s; --r:-564deg; width:18px; height:22px"></i><i class="fr-ty-cf" style="left:728px; background:#F472B6; --d:4.1s; --dl:-0.2s; --r:843deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:1418px; background:#14B8A6; --d:7.8s; --dl:-3.6s; --r:733deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:209px; background:#FACC15; --d:5.9s; --dl:-2.7s; --r:361deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:704px; background:#F472B6; --d:4.3s; --dl:-5.3s; --r:564deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:888px; background:#F472B6; --d:5.3s; --dl:-6.4s; --r:834deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:173px; background:#F472B6; --d:4.6s; --dl:-7.9s; --r:-514deg; width:18px; height:22px"></i><i class="fr-ty-cf" style="left:1651px; background:#F472B6; --d:4.6s; --dl:-6.6s; --r:718deg; width:10px; height:28px"></i><i class="fr-ty-cf" style="left:1122px; background:#FACC15; --d:4.1s; --dl:-6.4s; --r:-899deg; width:18px; height:16px"></i><i class="fr-ty-cf" style="left:888px; background:#FACC15; --d:7.3s; --dl:-1.7s; --r:577deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:492px; background:#14B8A6; --d:5.3s; --dl:-4.4s; --r:-422deg; width:18px; height:22px"></i><i class="fr-ty-cf" style="left:1838px; background:#3563E8; --d:6.6s; --dl:-6.5s; --r:873deg; width:10px; height:28px"></i><i class="fr-ty-cf" style="left:310px; background:#14B8A6; --d:6.0s; --dl:-7.0s; --r:-364deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:289px; background:#3563E8; --d:6.5s; --dl:-1.0s; --r:-693deg; width:18px; height:28px"></i><i class="fr-ty-cf" style="left:1086px; background:#14B8A6; --d:5.9s; --dl:-6.2s; --r:-614deg; width:10px; height:22px"></i><i class="fr-ty-cf" style="left:86px; background:#0B3FCC; --d:6.0s; --dl:-4.5s; --r:-813deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:1035px; background:#14B8A6; --d:6.0s; --dl:-5.5s; --r:880deg; width:18px; height:22px"></i><i class="fr-ty-cf" style="left:1039px; background:#FACC15; --d:6.8s; --dl:-7.0s; --r:567deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:853px; background:#0B3FCC; --d:5.6s; --dl:-2.5s; --r:-798deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:1371px; background:#0D1117; --d:7.1s; --dl:-7.2s; --r:-734deg; width:10px; height:22px"></i><i class="fr-ty-cf" style="left:1808px; background:#FACC15; --d:7.9s; --dl:-1.8s; --r:-767deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:1367px; background:#FACC15; --d:4.6s; --dl:-3.5s; --r:707deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:730px; background:#0D1117; --d:4.4s; --dl:-2.9s; --r:829deg; width:14px; height:28px"></i><i class="fr-ty-cf" style="left:37px; background:#3563E8; --d:5.3s; --dl:-5.0s; --r:-475deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:172px; background:#0D1117; --d:5.1s; --dl:-7.2s; --r:-636deg; width:10px; height:22px"></i><i class="fr-ty-cf" style="left:1739px; background:#F472B6; --d:7.3s; --dl:-2.1s; --r:-887deg; width:18px; height:22px"></i><i class="fr-ty-cf" style="left:1434px; background:#0D1117; --d:4.4s; --dl:-0.5s; --r:-795deg; width:10px; height:22px"></i><i class="fr-ty-cf" style="left:34px; background:#F472B6; --d:4.4s; --dl:-2.1s; --r:-428deg; width:14px; height:16px"></i><i class="fr-ty-cf" style="left:929px; background:#0B3FCC; --d:5.4s; --dl:-4.4s; --r:492deg; width:10px; height:28px"></i><i class="fr-ty-cf" style="left:1453px; background:#FACC15; --d:7.8s; --dl:-7.8s; --r:411deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:638px; background:#F472B6; --d:5.2s; --dl:-6.1s; --r:816deg; width:18px; height:28px"></i><i class="fr-ty-cf" style="left:364px; background:#0D1117; --d:5.4s; --dl:-0.1s; --r:397deg; width:10px; height:16px"></i><i class="fr-ty-cf" style="left:1501px; background:#14B8A6; --d:6.2s; --dl:-1.5s; --r:611deg; width:14px; height:16px"></i></div>
+    <div class="fr-abs fr-ty-veil" data-fit="fixed" style="left: 210px; top: 250px; width: 1500px; height: 620px" aria-hidden="true"></div>
+    <span class="fr-abs fr-label brand fr-ty-top" style="left: 560px; top: 330px; width: 800px; text-align: center; font-size: 18px">That's a wrap</span>
+    <div class="fr-abs fr-ty-words" style="left: 160px; top: 380px; width: 1600px" aria-label="Thank you"><span style="--k: 0">Thank <em>you.</em></span><span style="--k: 1">Dhanyavaad<em>.</em></span><span style="--k: 2">Shukriya<em>.</em></span><span style="--k: 3">Nandri<em>.</em></span><span style="--k: 4">Dhonnobad<em>.</em></span></div>
+    <div class="fr-abs fr-ty-sub" style="left: 460px; top: 662px; width: 1000px"><button type="button" class="fr-ty-again" data-restart>Press <kbd>R</kbd> to replay from the start</button></div>
+  </div>
+</section>
+
+    </div><!-- /stage -->
+
+    <!-- floating controls: shown while the mouse moves -->
+    <button class="ov-btn close-btn" id="closeBtn" type="button" aria-label="Close case study" title="Close (Esc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="ov-btn side-nav prev" id="prevBtn" type="button" aria-label="Previous slide" title="Previous (←)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="ov-btn side-nav next" id="nextBtn" type="button" aria-label="Next slide" title="Next (→)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+
+  <footer class="bottombar">
+    <div class="progress" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="bottom-row">
+      <div class="counter" aria-hidden="true"><span id="current">01</span> <span class="total">/ <span id="total">20</span></span></div>
+      <div class="slide-title" id="slideTitle"></div>
+      <div class="hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd> navigate <kbd>Esc</kbd> close</div>
+      <div class="mobile-nav">
+        <button class="icon-btn" id="prevBtnM" type="button" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="icon-btn" id="nextBtnM" type="button" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </footer>
+  <p class="sr-only" id="announcer" aria-live="polite"></p>
+</main>
+
+<script src="assets/case-study.js"></script>
+</body>
+</html>

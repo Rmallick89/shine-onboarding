@@ -1,0 +1,162 @@
+/* ==========================================================================
+   SHINE DESIGN SYSTEM · tokens for case-study slides
+   Source: Shine Revamp › design-system (DESIGN-SYSTEM.md tokens, as used in
+   critical-atoms.html, pills-chips-tags-badges.html and the app components).
+   Primitives first, then the semantic roles the themes read from.
+   Light roles apply to every slide canvas; .kn (theme B) switches to the dark set.
+   ========================================================================== */
+
+/* Brand typeface: Plus Jakarta Sans (SIL Open Font License), self-hosted */
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 400; font-display: swap; src: url("fonts/PlusJakartaSans-400.woff2") format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 500; font-display: swap; src: url("fonts/PlusJakartaSans-500.woff2") format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 600; font-display: swap; src: url("fonts/PlusJakartaSans-600.woff2") format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 700; font-display: swap; src: url("fonts/PlusJakartaSans-700.woff2") format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 800; font-display: swap; src: url("fonts/PlusJakartaSans-800.woff2") format("woff2"); }
+
+:root {
+  /* ---- primitives ---- */
+  --c-brand-50: #F0F5FF;  --c-brand-100: #EBF0FF; --c-brand-200: #C9DBFF; --c-brand-300: #7EA3FF;
+  --c-brand-400: #4D7CFF; --c-brand-500: #1A56FF; --c-brand-600: #0B3FCC; --c-brand-700: #0A33A6;
+  --c-brand-800: #082478; --c-brand-900: #06184F;
+  --c-cn-50: #F7F9FB;  --c-cn-100: #EEF1F5; --c-cn-200: #E4E7EC; --c-cn-300: #C8CED7; --c-cn-400: #98A2B3;
+  --c-cn-500: #667085; --c-cn-600: #4A5260; --c-cn-700: #344054; --c-cn-800: #232A38; --c-cn-900: #161B22;
+  --c-cn-black: #0D1117; --c-cn-white: #FFFFFF; --c-wn-100: #FAF9F6;
+  --c-ey-100: #FFFCC0; --c-ey-400: #FFE419; --c-ey-800: #5F5200; --c-ey-950: #1D1900;
+  --c-green-50: #EAFAF0; --c-green-300: #5DD4A1; --c-green-400: #34D77F; --c-green-600: #0E9A5A; --c-green-700: #027A48; --c-green-950: #011A10;
+  --c-red-50: #FEF2F2;   --c-red-300: #FCA5A0;   --c-red-400: #F87171;   --c-red-600: #B42318;   --c-red-950: #1C0404;
+  --c-amber-100: #FFF4ED; --c-amber-400: #FAB663; --c-amber-600: #D97706; --c-amber-700: #A35A04; --c-amber-950: #211100;
+  --c-aqua-100: #CCFBEE;   --c-aqua-500: #14B8A6;   --c-aqua-700: #0F766A;   --c-aqua-950: #042F2C;
+  --c-cyan-100: #CFFAFE;   --c-cyan-500: #06B6D4;   --c-cyan-700: #0E7490;   --c-cyan-950: #083344;
+  --c-violet-100: #F3EEFE; --c-violet-500: #7A5AF8; --c-violet-600: #6F46E0; --c-violet-950: #130624;
+  --c-pink-100: #FCE7F3;   --c-pink-500: #E31B8F;   --c-pink-600: #BE185D;   --c-pink-950: #200410;
+  --c-lime-100: #EBFFB0;   --c-lime-300: #C4FF38;   --c-lime-700: #56770B;   --c-lime-950: #111900;
+
+  --typeface-family-brand: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  --typeface-weight-regular: 400; --typeface-weight-medium: 500; --typeface-weight-semibold: 600;
+  --typeface-weight-bold: 700;    --typeface-weight-extrabold: 800;
+
+  --size-radius-xs: 2px; --size-radius-sm: 4px; --size-radius-md: 8px; --size-radius-lg: 12px;
+  --size-radius-xl: 16px; --size-radius-2xl: 24px; --size-radius-full: 1024px;
+  --size-stroke-thin: 1px; --size-stroke-default: 1.5px; --size-stroke-thick: 2px;
+}
+
+/* ---- semantic roles · light (DS :root / [data-theme=light]) ---- */
+.canvas {
+  --content-neutral-base: var(--c-cn-black);
+  --content-neutral-muted: var(--c-cn-700);
+  --content-neutral-faded: var(--c-cn-500);
+  --content-neutral-disabled: var(--c-cn-400);
+  --content-neutral-brand: var(--c-brand-600);
+  --content-neutral-brand-hover: var(--c-brand-700);
+  --content-on-fill-dark-base: var(--c-cn-white);
+  --content-on-fill-light-base: var(--c-cn-black);
+  --content-status-positive: var(--c-green-700);
+  --content-status-negative: var(--c-red-600);
+  --content-status-notice: var(--c-amber-700);
+  --content-decorative-aqua: var(--c-aqua-700);
+  --content-decorative-cyan: var(--c-cyan-700);
+  --content-decorative-violet: var(--c-violet-600);
+  --content-decorative-pink: var(--c-pink-600);
+  --content-decorative-lime: var(--c-lime-700);
+  --content-decorative-ey: var(--c-ey-800);
+
+  --surface-neutral-base: var(--c-wn-100);       /* warm white #FAF9F6: the page / slide background */
+  --surface-neutral-raised: var(--c-cn-white);
+  --surface-neutral-muted: var(--c-cn-100);
+  --surface-neutral-sunken: var(--c-cn-200);
+  --surface-brand-brand-intense: var(--c-brand-500);
+  --surface-brand-brand-intense-hover: var(--c-brand-600);
+  --surface-brand-brand-subtle: var(--c-brand-100);
+  --surface-status-positive-subtle: var(--c-green-50);
+  --surface-status-negative-subtle: var(--c-red-50);
+  --surface-status-notice-subtle: var(--c-amber-100);
+  --surface-decorative-aqua-subtle: var(--c-aqua-100);
+  --surface-decorative-cyan-subtle: var(--c-cyan-100);
+  --surface-decorative-violet-subtle: var(--c-violet-100);
+  --surface-decorative-pink-subtle: var(--c-pink-100);
+  --surface-decorative-lime-subtle: var(--c-lime-100);
+  --surface-decorative-ey-intense: var(--c-ey-400);
+  --surface-decorative-ey-subtle: var(--c-ey-100);
+
+  --stroke-neutral-base: var(--c-cn-200);
+  --stroke-neutral-muted: var(--c-cn-100);
+  --stroke-neutral-strong: var(--c-cn-black);      /* slide rules that carry structure */
+  --stroke-status-positive: var(--c-green-600);
+  --stroke-status-negative: var(--c-red-600);
+
+  --elevation-neutral-raised: 0 1px 3px rgba(13,17,23,0.08), 0 1px 2px rgba(13,17,23,0.04);
+  --elevation-neutral-lifted: 0 4px 12px rgba(13,17,23,0.08), 0 2px 4px rgba(13,17,23,0.04);
+  --elevation-neutral-overlay: 0 16px 36px -10px rgba(13,17,23,0.30), 0 4px 10px -2px rgba(13,17,23,0.10);
+}
+
+/* ---- semantic roles · dark (DS [data-theme=dark]) ---- */
+.canvas.kn, .canvas[data-theme="dark"] {
+  --content-neutral-base: var(--c-cn-50);
+  --content-neutral-muted: var(--c-cn-300);
+  --content-neutral-faded: var(--c-cn-400);
+  --content-neutral-disabled: var(--c-cn-600);
+  --content-neutral-brand: var(--c-brand-300);
+  --content-neutral-brand-hover: var(--c-brand-200);
+  --content-status-positive: var(--c-green-300);
+  --content-status-negative: var(--c-red-300);
+  --content-status-notice: var(--c-amber-400);
+  --content-decorative-aqua: #5EEAC8;
+  --content-decorative-cyan: #67E8F9;
+  --content-decorative-violet: var(--c-violet-500);
+  --content-decorative-pink: #F498CB;
+  --content-decorative-lime: var(--c-lime-300);
+  --content-decorative-ey: var(--c-ey-400);
+
+  --surface-neutral-base: var(--c-cn-black);
+  --surface-neutral-raised: var(--c-cn-800);
+  --surface-neutral-muted: var(--c-cn-900);
+  --surface-neutral-sunken: var(--c-cn-black);
+  --surface-brand-brand-subtle: var(--c-brand-900);
+  --surface-status-positive-subtle: var(--c-green-950);
+  --surface-status-negative-subtle: var(--c-red-950);
+  --surface-status-notice-subtle: var(--c-amber-950);
+  --surface-decorative-aqua-subtle: var(--c-aqua-950);
+  --surface-decorative-cyan-subtle: var(--c-cyan-950);
+  --surface-decorative-violet-subtle: var(--c-violet-950);
+  --surface-decorative-pink-subtle: var(--c-pink-950);
+  --surface-decorative-lime-subtle: var(--c-lime-950);
+  --surface-decorative-ey-subtle: var(--c-ey-950);
+
+  --stroke-neutral-base: var(--c-cn-600);
+  --stroke-neutral-muted: var(--c-cn-700);
+  --stroke-neutral-strong: var(--c-cn-400);
+  --stroke-status-positive: var(--c-green-400);
+  --stroke-status-negative: var(--c-red-400);
+
+  --elevation-neutral-raised: 0 1px 3px rgba(0,0,0,0.40), 0 1px 2px rgba(0,0,0,0.25);
+  --elevation-neutral-lifted: 0 4px 12px rgba(0,0,0,0.45), 0 2px 4px rgba(0,0,0,0.30);
+  --elevation-neutral-overlay: 0 16px 36px -10px rgba(0,0,0,0.70), 0 4px 10px -2px rgba(0,0,0,0.40);
+}
+
+/* ---- Badge (DS §Badge: read-only status / category label, pill-shaped) ----
+   Shared by both themes. Scaled ×1.5 from the app size so it reads on a 1920 slide.
+   <span class="ds-badge ds-badge--brand">Solution 1</span>
+   intents: --brand --positive --negative --notice --neutral
+   decorative: --aqua --cyan --violet --pink --lime --ey */
+.ds-badge {
+  display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+  height: 36px; padding: 0 16px; border-radius: var(--size-radius-full);
+  font-family: var(--typeface-family-brand); font-size: 17px; font-weight: var(--typeface-weight-bold);
+  line-height: 1; letter-spacing: 0; white-space: nowrap;
+  background: var(--surface-neutral-muted); color: var(--content-neutral-muted);
+}
+.ds-badge--lg { height: 44px; padding: 0 20px; font-size: 19px; }
+.ds-badge--brand    { background: var(--surface-brand-brand-subtle);      color: var(--content-neutral-brand); }
+.ds-badge--brand-intense { background: var(--surface-brand-brand-intense); color: var(--content-on-fill-dark-base); }
+.ds-badge--positive { background: var(--surface-status-positive-subtle);  color: var(--content-status-positive); }
+.ds-badge--negative { background: var(--surface-status-negative-subtle);  color: var(--content-status-negative); }
+.ds-badge--notice   { background: var(--surface-status-notice-subtle);    color: var(--content-status-notice); }
+.ds-badge--neutral  { background: var(--surface-neutral-muted);           color: var(--c-cn-600); }
+.ds-badge--aqua     { background: var(--surface-decorative-aqua-subtle);  color: var(--content-decorative-aqua); }
+.ds-badge--cyan     { background: var(--surface-decorative-cyan-subtle);  color: var(--content-decorative-cyan); }
+.ds-badge--violet   { background: var(--surface-decorative-violet-subtle); color: var(--content-decorative-violet); }
+.ds-badge--pink     { background: var(--surface-decorative-pink-subtle);  color: var(--content-decorative-pink); }
+.ds-badge--lime     { background: var(--surface-decorative-lime-subtle);  color: var(--content-decorative-lime); }
+.ds-badge--ey       { background: var(--surface-decorative-ey-subtle);    color: var(--content-decorative-ey); }
+.ds-badge--ey-intense { background: var(--surface-decorative-ey-intense); color: var(--content-on-fill-light-base); }
+.ds-badge svg { width: 18px; height: 18px; flex: none; }
