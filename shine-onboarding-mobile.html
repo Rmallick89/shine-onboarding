@@ -328,6 +328,7 @@ html,body{height:100%;overflow:hidden;background:#0B3FCC;transition:background-c
 
 /* 1. headlines rise in word by word (words are wrapped by JS) */
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.st h1 .w,.st h2 .w{color:inherit} /* word wrappers are spans: keep each word the colour of its line, not the yellow-span rule */
 .w>i{display:inline-block;font-style:normal;transform:translateY(108%)}
 .st.in .w>i{transform:none;transition:transform .75s cubic-bezier(.2,.8,.2,1);transition-delay:calc(140ms + var(--wi) * 38ms)}
 .cnt{font-variant-numeric:tabular-nums}
